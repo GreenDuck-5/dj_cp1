@@ -11,3 +11,7 @@ print("grade")
 #name = "green", last_name = "duck"
 #  ^ not good but works
 
+how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood = 1
+#^not good
+result = how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood + how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood
+print(result)
