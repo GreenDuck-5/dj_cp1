@@ -17,7 +17,6 @@ gpa = float(input("Enter GPA: ").strip())
 
 
 
-
 print("Name:" , full_name)
 print("Phone Number:" , phone_number)
 print("GPA: " , gpa)
