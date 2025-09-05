@@ -5,19 +5,22 @@ last_name = input("Enter last name: ").title().strip()
 full_name = (first_name,last_name)
 
 
-phone_number = input("Enter phone number: ").strip()
-phone_one , phone_two = phone_number.split()
-
-
-gpa = input("Enter GPA: ")
-
-
+phone_number_p_one = input("Enter the first 3 digits of your phone number: ").strip()
+phone_number_p_two = input("Enter the second 3 digits of your phone number: ").strip()
+phone_number_p_three = input("Enter the last 4 digits of your phone number: ").strip()
+phone_number = phone_number_p_one+phone_number_p_two+phone_number_p_three
 
 
 
-print("Name:" ,  full_name)
-print("Phone Number:",phone_number)
-print()
+gpa = float(input("Enter GPA: ").strip())
+
+
+
+
+
+print("Name:" , full_name)
+print("Phone Number:" , phone_number)
+print("GPA: " , gpa)
 
 
 
