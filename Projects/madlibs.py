@@ -1,4 +1,5 @@
 #DJ, 1st, Mad Lib
+name = "Clang"
 
 adjective_1 = input("Give me an adjective: ") #1
 

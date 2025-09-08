@@ -4,3 +4,4 @@ last_name = input()
 print("What is your favorite season?")
 season = input()
 print("Wow,",last_name,"san, I like",season,"too!")
+name = "Clang"

@@ -1,4 +1,5 @@
 #DJ, 1st, Who Are You
+name = "Clang"
 print("What is your name?")
 name = input()
  

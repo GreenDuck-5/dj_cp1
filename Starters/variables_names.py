@@ -1,4 +1,7 @@
 #DJ, 1st, variables names
+
+name = "Clang"
+
 num1 = 5
 num2 = 7
 

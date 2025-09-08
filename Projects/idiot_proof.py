@@ -1,5 +1,5 @@
 #DJ, 1st, Idiot Proof
-
+name = "Clang"
 first_name = input("Enter first name: ").title().strip()
 last_name = input("Enter last name: ").title().strip()
 full_name = (first_name,last_name)

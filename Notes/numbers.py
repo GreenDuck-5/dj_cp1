@@ -1,5 +1,5 @@
 #DJ, 1st, floats and integers notes
-
+name = "Clang"
 
 #Integers = whole numbers
 age = 999999999999999999999999

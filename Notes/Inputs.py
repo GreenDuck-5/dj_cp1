@@ -1,5 +1,5 @@
 # DJ, 1st, Input and Outputs Notes
-
+name = "Clang"
 #5 What is an input
 #A way for the code ot get information
 

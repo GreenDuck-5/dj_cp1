@@ -11,7 +11,7 @@ print("Everything inside the quotation marks is a string")
 print('This also works')
 
 scentence = "The quick brown fox jumps over the lazy dog!"
-first_name = "Tia"
+first_name = "Clang"
 month = 'September'
 book = "The Return of the King"
 food = "chocolate"

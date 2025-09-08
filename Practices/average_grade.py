@@ -13,3 +13,5 @@ not_average_grade = (grade_total /7)
 average_grade = round(not_average_grade,2)
 
 print("Your average grade is",average_grade)
+
+name = "Clang"

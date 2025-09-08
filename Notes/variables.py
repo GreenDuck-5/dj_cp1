@@ -6,9 +6,9 @@ print(grade)
 grade = 95
 print(grade)
 print("grade")
+name = "Clang"
 
-
-#name = "green", last_name = "duck"
+#name = "Clang", last_name = "duck"
 #  ^ not good but works
 
 how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood = 117985702
