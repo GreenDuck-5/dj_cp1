@@ -15,6 +15,8 @@ print(f"{number_one} - {number_two} = {subtraction}")
 print(f"{number_one} * {number_two} = {multiplication}")
 print(f"{number_one} / {number_two} = {division}")
 print(f"{number_one} // {number_two} = {integer_division}")
-print(f"{number_one} % {number_two} = {modulo}"
-      
+print(f"{number_one} % {number_two} = {modulo}")
+
+
+
 name = "Clang"
