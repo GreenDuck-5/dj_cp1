@@ -2,3 +2,5 @@ print("Test")
 print("Update")
 #print()<= Everything inside the parentheses gets printed
 name = "Clang"
+
+print(name)
