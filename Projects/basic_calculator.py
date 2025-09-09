@@ -3,16 +3,18 @@
 number_one = int(input("Number 1: "))
 number_two = int(input("Number 2: "))
 
-addition = (number_one + number_two)
-subtraction = (number_one - number_two)
-multiplication = (number_one * number_two)
-division = (number_one / number_two)
-integer_division = (number_one // number_two)
-modulo =  (number_one % number_two)
+addition = int((number_one + number_two))
+subtraction = int((number_one - number_two))
+multiplication = int((number_one * number_two))
+division = int((number_one / number_two))
+integer_division = int((number_one // number_two))
+modulo =  int((number_one % number_two))
 
-print(f"{number_one} + {number_two}")
-print(f"{number_two} - {number_two}")
-print(f"{number_one} * {number_two}")
-print(f"{number_one} / {number_two}")
-print()
-print()
+print(f"{number_one} + {number_two} = {addition}")
+print(f"{number_one} - {number_two} = {subtraction}")
+print(f"{number_one} * {number_two} = {multiplication}")
+print(f"{number_one} / {number_two} = {division}")
+print(f"{number_one} // {number_two} = {integer_division}")
+print(f"{number_one} % {number_two} = {modulo}"
+      
+name = "Clang"
