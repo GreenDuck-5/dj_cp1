@@ -11,6 +11,6 @@ shares = float(total_earned / (crew_members + 10))
 
 
 #Print results
-print(f"Each crew member recieves ${(shares - 500):.2}")
-print(f"The first mate recieves ${(shares * 3):.2}")
-print(f"The captian receives ${(shares * 7):.2}")
+print(f"Each crew member recieves ${(shares - 500):.2f}")
+print(f"The first mate recieves ${(shares * 3):.2f}")
+print(f"The captian receives ${(shares * 7):.2f}")
