@@ -23,9 +23,7 @@ while running:
         if user_choice == "rock":
             if com_choice == "rock":
                 print("Both picked rock! You tied.")
-        if user_choice == "rock":
             if com_choice == "paper":
                 print("Computer picked paper! You lose.")
-        if user_choice == "rock":
             if com_choice == "scissors":
                 print("Computer chose scissors! You win.")
