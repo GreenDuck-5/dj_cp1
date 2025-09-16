@@ -26,4 +26,4 @@ while running:
             if com_choice == "paper":
                 print("Computer picked paper! You lose.")
             if com_choice == "scissors":
-                print("Computer chose scissors! You win.")
+                print("Computer picked scissors! You win.")
