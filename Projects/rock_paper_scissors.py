@@ -19,5 +19,13 @@ while running:
         if com_choice == 3:
             "rock"
 
-        user_choice = input("Rock, Paper, Scissors, Shoot: ").strip().lower()
-        
+        user_choice = input("Rock, Paper, Scissors:\n").strip().lower()
+        if user_choice == "rock":
+            if com_choice == "rock":
+                print("Both picked rock! You tied.")
+        if user_choice == "rock":
+            if com_choice == "paper":
+                print("Computer picked paper! You lose.")
+        if user_choice == "rock":
+            if com_choice == "scissors":
+                print("Computer chose scissors! You win.")
