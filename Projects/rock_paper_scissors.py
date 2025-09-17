@@ -10,7 +10,7 @@ while running:
         print("ok")
         running = False
 
-    else:
+    if play == "yes":
         com_choice = random.randint(1,3)
         if com_choice == 1:
             "scissors"
@@ -20,10 +20,15 @@ while running:
             "rock"
 
         user_choice = input("Rock, Paper, Scissors:\n").strip().lower()
-        if user_choice == "rock":
-            if com_choice == "rock":
+        if user_choice == "rock" and com_choice == "rock":
                 print("Both picked rock! You tied.")
-            if com_choice == "paper":
+        
+        if user_choice =="rock" and com_choice == "paper":
                 print("Computer picked paper! You lose.")
-            if com_choice == "scissors":
+        
+        if user_choice == "rock" and com_choice == "scissors":
                 print("Computer picked scissors! You win.")
+
+    else:
+         print("Actually answer the question")
+         running = False
