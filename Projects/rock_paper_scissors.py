@@ -31,4 +31,3 @@ while running:
 
     else:
          print("Actually answer the question")
-         running = False
