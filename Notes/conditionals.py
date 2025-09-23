@@ -28,7 +28,7 @@ while True:
         clang_hp -= (damage_roll-clang_defense)
     
     elif hit_roll == 1:
-        print("You rolled a critacal failure! Now the monster gets to attack you!")
+        print("You rolled a critical failure! Now the monster gets to attack you!")
         damage_roll = random.randint(1,12) + clang_damage
         player_hp -= (damage_roll - player_defense)
         print(f"Your hp is now {player_hp}")
