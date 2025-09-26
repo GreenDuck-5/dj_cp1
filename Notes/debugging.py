@@ -43,6 +43,7 @@ while True:
 #Logic errors - We gave the wrong steps
 #Go through the logic step by step
 
+#run time error - 
 
 
 # How do we resolve each type of bug?
