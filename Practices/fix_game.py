@@ -13,11 +13,12 @@ def start_game():
         #guess was not int, cannot do math with it - run time error
         guess = input("Enter your guess: ").isdigit()
         if guess == False:
-            pass
+            print("Please input a number")
+        #if statement order wrong - logic error
         if attempts >= max_attempts:
             print(f"Sorry, you've used all {max_attempts} attempts. The number was {number_to_guess}.")
             game_over = True
-        if guess == number_to_guess:
+        elif guess == number_to_guess:
             print("Congratulations! You've guessed the number!")
             game_over = True
         elif guess > number_to_guess:
