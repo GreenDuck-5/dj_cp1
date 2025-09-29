@@ -51,7 +51,7 @@ colors.insert(2,"Puce")
 
 
 #What does extend do?
-colors.extend([67,68])
+#colors.extend([67,68])
 # Adds items at the end of the list
 
 
@@ -61,5 +61,16 @@ colors.pop()
 colors.pop(0)
 colors.remove("Maroon")
 print(colors)
-colors.clear()
+#colors.clear()
 print(colors)
+
+
+board = [[1,2,3],
+         [4,5,6],
+         [7,8,9]
+         ] 
+
+fruit = ("Apple", "Orange", "Pineapple") #tuple, ordered, not changeable
+
+
+veggies = {"Spinach", "Kale", "Broccoli", "Carrot"} #set. unordered, changeable 
