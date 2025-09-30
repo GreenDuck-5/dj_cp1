@@ -74,5 +74,3 @@ fruit = ("Apple", "Orange", "Pineapple") #tuple, ordered, not changeable
 
 
 veggies = {"Spinach", "Kale", "Broccoli", "Carrot"} #set. unordered, changeable 
-
-PendingDeprecationWarning
