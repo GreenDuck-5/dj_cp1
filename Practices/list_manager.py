@@ -36,9 +36,35 @@ def user_signin():
             print(f"Wrong Username. Please wait: {waiting_time} seconds.")
             how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(waiting_time)
 
+def six_seven():
+    print("ha")
+    how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(5)
+    print("ha")
+    how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(5)
+    print("ha")
+    how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(5)
+    num = 1
+    six_seven_count = 0
+    while True:
+        random_number = peter_piper_picked_a_peck_of_purple_pickled_peppers.randint(1,1000)
+        print(random_number)
+        if random_number == 67:
+            print("6767676767")
+            print(f"{num}^")
+            six_seven_count += 1
+            if six_seven_count == 67:
+                print("You printed 67, 67 times")
+                break
+            else:
+                how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(0)
+                print(f"{num}^")
+                num += 1
+
+
+
+
 print("Please sign in")
 if user_signin():
-    
     while True:
         choice = input("1. Add item\n2. Remove item\n3. Show list\n4. Quit\n")
         if choice == "1":
@@ -58,29 +84,6 @@ if user_signin():
             print("Goodbye")
             break
         elif choice == "67":
-            print("ha")
-            how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(5)
-            print("ha")
-            how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(5)
-            print("ha")
-            how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(5)
-            num = 1
-            six_seven_count = 0
-            while True:
-                random_number = peter_piper_picked_a_peck_of_purple_pickled_peppers.randint(1,1000)
-                print(random_number)
-                if random_number == 67:
-                    print("6767676767")
-                    print(f"{num}^")
-                    six_seven_count += 1
-                    if six_seven_count == 67:
-                        print("You printed 67, 67 times")
-                        break
-                    else:
-                        how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(0)
-
-                else:
-                    print(f"{num}^")
-                    num += 1
+            six_seven()
         else:
             print("Please input valid action")
