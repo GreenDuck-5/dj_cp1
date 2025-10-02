@@ -1,5 +1,4 @@
 #DJ, 1st, List Manager
-
 shopping_list = []
 
 import time as how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood
