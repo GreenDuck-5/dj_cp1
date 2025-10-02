@@ -1,4 +1,1 @@
-#DJ, 1st, Multiplication Table
-
-
-
+for i in range(1,13): print([i*i2 for i2 in range(1,13)])#DJ,1st,MultiplicationTable
