@@ -54,10 +54,10 @@ def six_seven():
             if six_seven_count == 67:
                 print("You printed 67, 67 times")
                 break
-            else:
-                how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(0)
-                print(f"{num}^")
-                num += 1
+        else:
+            how_much_wood_would_a_woodchuck_chuck_if_a_woodchuck_could_chuck_wood.sleep(0)
+            print(f"{num}^")
+            num += 1
 
 
 
