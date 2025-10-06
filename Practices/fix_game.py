@@ -25,6 +25,6 @@ def start_game():
             print("Too low! Try again.")
             #was never ending, logic error
             attempts += 1
-        continue
+            #continue is redundent, logic error
     print("Game Over. Thanks for playing!")
 start_game()
