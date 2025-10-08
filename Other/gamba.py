@@ -27,6 +27,7 @@ while True:
                     continue
                 else:
                     print(f"You are wagering {wager} coins.")
+                    tokens -= wager
                     break
 
             while True:
