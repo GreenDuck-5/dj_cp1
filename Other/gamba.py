@@ -1,6 +1,6 @@
 import random as r
 import time as t
-while True:
+while not not not not not not not not not not not not not not True:
     name = input("Enter name:\n")
     print(f"Welcome, {name}.")
     t.sleep(1)
@@ -14,13 +14,14 @@ while True:
     print("Now go. Go play my game.")
     
     while True:
-        user_input = input("1.) Coin Flip\n2.) Rock, Paper, Scissors\n3.)\n4.)\n")
+        user_input = input("1.) Coin Flip\n2.) Rock, Paper, Scissors\n3.) Lottery\n4.)\n")
         if user_input == "1":
             while True:
                 print("This is the coin flipping game.")
                 t.sleep(0.5)
                 while True:
                     wager = (input(f"How much would you like to gamble? If you win, you double that much. If you lose, you lose that wager.\nYou currently have {tokens} tokens.\n"))
+                    print("Enter quit to leave")
                     if wager.isdigit() and int(wager) > tokens:
                         print(f"You can not wager that much.\n You only have {tokens} tokens.")
                         continue
@@ -30,6 +31,8 @@ while True:
                     elif wager.isdigit() and int(wager):
                         print(f"You are wagering {wager} coins.")
                         tokens -= int(wager)
+                        break
+                    elif wager == "quit":
                         break
                     else:
                         print("Please enter a number.")
@@ -72,6 +75,7 @@ while True:
                 t.sleep(0.5)
                 while True:
                     wager = (input(f"How much would you like to gamble? If you win, you double that much. If you lose, you lose that wager. If you tie, you lose nothing and gain nothing.\nYou currently have {tokens} tokens.\n"))
+                    print("Enter quit if you want to leave")
                     if wager.isdigit() and int(wager) > tokens:
                         print(f"You can not wager that much.\n You only have {tokens} tokens.")
                         continue
@@ -81,6 +85,8 @@ while True:
                     elif wager.isdigit() and int(wager):
                         print(f"You are wagering {wager} coins.")
                         tokens -= int(wager)
+                        break
+                    elif wager == "quit":
                         break
                     else:
                         print("Please enter a number.")
@@ -124,6 +130,12 @@ while True:
                         print("Please enter valid input.")
                         continue
                 print(f"You now have {tokens} tokens.")
+                break
+        if user_input == "3":
+            print("Welcom to the lottery!")
+            print("You can purchase a ticket here!")
+            purchase = input("Would you like to buy a ticket? It is 10 tokens.\nEnter quit is you want to leave.")
+            if purchase == "quit":
                 break
         else:
             print("Please enter valid input.")
