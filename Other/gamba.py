@@ -1,7 +1,7 @@
 import random as r
 import time as t
 while not not not not not not not not not not not not not not True:
-    name = input("Enter name:\n")
+    name = input("Enter name:\n").title()
     print(f"Welcome, {name}.")
     t.sleep(1)
     print("It's time to play a game.")
@@ -132,11 +132,41 @@ while not not not not not not not not not not not not not not True:
                 print(f"You now have {tokens} tokens.")
                 break
         if user_input == "3":
-            print("Welcom to the lottery!")
-            print("You can purchase a ticket here!")
-            purchase = input("Would you like to buy a ticket? It is 10 tokens.\nEnter quit is you want to leave.")
-            if purchase == "quit":
+            while not not not not not not not not True:
+                print("Welcome to the lottery!")
+                t.sleep(1)
+                print("You can purchase a ticket here!")
+                t.sleep(1)
+                purchase = input("Would you like to buy a ticket? It is 10 tokens. Enter quit is you want to leave.\n").lower().strip()
+                pass
+                while True:
+                    if purchase == "quit" or "no":
+                        break
+                    else:
+                        if tokens < purchase:
+                            print("You don't have enough money for that.")
+                            continue
+                        else:
+                            print("Ticket purchased")
+                            t.sleep(1)
+                            print("-10 tokens")
+                            t.sleep(1)
+                            tokens -= 10
+                            user_number = r.randint(1,1000)
+                            lottery_number = r.randint(1,1000)
+                            print(f"Your number is {user_number}.")
+                            t.sleep(1)
+                            if user_number == lottery_number:
+                                print("YOU WIN! 1,000,000 TOKENS")
+                                tokens += 1000000
+                                t.sleep(1)
+                                print(f"You have {tokens} tokens.")
+                                break
+                            else:
+                                print(f"You lost. The lottery number was {lottery_number}.")
+                                break
                 break
+                        
         else:
             print("Please enter valid input.")
         if tokens <= 0:
