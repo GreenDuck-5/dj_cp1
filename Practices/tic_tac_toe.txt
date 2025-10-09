@@ -1,2 +1,37 @@
 DJ, 1st, Tic Tac Toe Pseudocode
 
+list with 9 variables for user and computer
+list = ["","","",
+        "","","",
+        "","",""]
+set wins for computer and player as 0
+
+defining a function to pick win conditions
+    if spot 1,2,3 have x
+        player wins
+        +1 to wins for player
+    do the same process for rest of win conditions
+    
+
+loop the entire game
+    print "welcome to tic tac toe"
+    print "you will pick numbers, 1-9, that cordinates to spaces to the tic tac toe board"
+    loop the game
+        print board/updated board
+        user_choice = ask user "please input your choice"
+        if user_choice is 1
+            mark the first spot of the board marked as x
+            remove that from list choices
+            function that checks win condition
+                if the game is won, end it
+            continue at the start of this loop
+        
+        do the same process for the rest of the choices
+        
+        use random.choice() to pick from the list of choices for computer
+            mark that spot on the board as o
+            remove that from list of choices
+            function that checks win condition
+                if the game is won, end it
+            continue at the start of this loop
+
