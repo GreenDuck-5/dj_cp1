@@ -165,8 +165,44 @@ while not not not not not not not not not not not not not not not not not not Tr
         elif user_input == "4":
             while not not not not not not not not not not not not not not not not not not not not not not not not not not True:
                 print("It's time for Russian Roulette!")
-                gamba = input("How much would you like to wager?")
-                
+                t.sleep(1)
+                while True:
+                    wager = (input(f"How much would you like to gamble? If you win, you double that much. If you lose, you lose that wager. If you tie, you lose nothing and gain nothing.\nYou currently have {tokens} tokens.\n"))
+                    print("Enter quit if you want to leave")
+                    if wager.isdigit() and int(wager) > tokens:
+                        print(f"You can not wager that much.\n You only have {tokens} tokens.")
+                        continue
+                    elif wager.isdigit() and int(wager) == 0:
+                        print("You cannot wager 0.")
+                        continue
+                    elif wager.isdigit() and int(wager):
+                        print(f"You are wagering {wager} coins.")
+                        tokens -= int(wager)
+                        break
+                    elif wager == "quit":
+                        break
+                    else:
+                        print("Please enter a number.")
+                if wager == "quit":
+                    break
+                else:
+                    print("One bullet, five blanks.")
+                    t.sleep(1)
+                    print("Spinning chamber...")
+                    t.sleep(1)
+                    print("Spinning chamber...")
+                    t.sleep(1)
+                    print("Spinning chamber...")
+                    t.sleep(1)
+                    gun = ["Blank","Blank","Blank","Blank","Blank","Blank","Bullet"]
+                    while True:
+                        print("Pick up the gun.")
+                        t.sleep(0.5)
+                        print("Aim it at yourself.")
+                        t.sleep(0.5)
+                        print("Shoot.")
+                        t.sleep(3)
+                        
         else:
             print("Please enter valid input.")
         if tokens <= 0:
