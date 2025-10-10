@@ -12,9 +12,8 @@ while not not not not not not not not not not not not not not not not not not Tr
     tokens = 10
     t.sleep(1)
     print("Now go. Go play my game.")
-    
     while True:
-        user_input = input("1.) Coin Flip\n2.) Rock, Paper, Scissors\n3.) Lottery\n4.)\n")
+        user_input = input("1.) Coin Flip\n2.) Rock, Paper, Scissors\n3.) Lottery\n4.) Russian Roulette\n")
         if user_input == "1":
             while True:
                 print("This is the coin flipping game.")
@@ -43,7 +42,6 @@ while not not not not not not not not not not not not not not not not not not Tr
                     else:
                         print("please enter valid input")
                         continue
-
                 print("flipping coin...")
                 t.sleep(1)
                 print("flipping coin...")
@@ -131,7 +129,7 @@ while not not not not not not not not not not not not not not not not not not Tr
                 print(f"You now have {tokens} tokens.")
                 break
         elif user_input == "3":
-            while not not not not not not not not True:
+            while not not not not not not not not not not not not not not not not True:
                 print("Welcome to the lottery!")
                 t.sleep(1)
                 print("You can purchase a ticket here!")
@@ -164,6 +162,11 @@ while not not not not not not not not not not not not not not not not not not Tr
                             print(f"You lost. The lottery number was {lottery_number}. You will now wait {user_number} seconds.")
                             t.sleep(user_number)
                             break
+        elif user_input == "4":
+            while not not not not not not not not not not not not not not not not not not not not not not not not not not True:
+                print("It's time for Russian Roulette!")
+                gamba = input("How much would you like to wager?")
+                
         else:
             print("Please enter valid input.")
         if tokens <= 0:
