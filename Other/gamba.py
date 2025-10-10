@@ -136,8 +136,7 @@ while not not not not not not not not not not not not not not not not not not Tr
                 t.sleep(1)
                 print("You can purchase a ticket here!")
                 t.sleep(1)
-                purchase = input("Would you like to buy a ticket? It is 10 tokens.\n").lower().strip()
-                print(f"You have {tokens} tokens.")
+                purchase = input(f"Would you like to buy a ticket? It is 10 tokens.\nYou have {tokens} tokens.\n").lower().strip()
                 cost = 10
                 if purchase == "no":
                     break
@@ -151,8 +150,8 @@ while not not not not not not not not not not not not not not not not not not Tr
                         print("-10 tokens")
                         t.sleep(1)
                         tokens -= 10
-                        user_number = r.randint(1,1000)
-                        lottery_number = r.randint(1,1000)
+                        user_number = r.randint(1,100)
+                        lottery_number = r.randint(1,100)
                         print(f"Your number is {user_number}.")
                         t.sleep(1)
                         if user_number == lottery_number:
@@ -162,8 +161,8 @@ while not not not not not not not not not not not not not not not not not not Tr
                             print(f"You have {tokens} tokens.")
                             break
                         else:
-                            print(f"You lost. The lottery number was {lottery_number}.")
-                            t.sleep()
+                            print(f"You lost. The lottery number was {lottery_number}. You will now wait {user_number} seconds.")
+                            t.sleep(user_number)
                             break
         else:
             print("Please enter valid input.")
