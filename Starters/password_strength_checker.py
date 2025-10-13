@@ -39,5 +39,15 @@ if len(password) >= 8:
     points += 1
 print(points)
 #tells user how strog their password is base off of their point score
-
-
+if points == 5:
+    print("Very Strong")
+elif points == 4:
+    print("Stong")
+elif points == 3:
+    print("Medium")
+elif points == 2:
+    print("Weak")
+elif points == 1:
+    print("Poor")
+else:
+    print("No.")
