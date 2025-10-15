@@ -58,7 +58,8 @@ while True:
             t.sleep(0.5)
             print(f"You now have {tokens} tokens.")
             t.sleep(0.5)
-            combo = 0
-            print("Your combo is now 0.")
+            combo = 1
+            print("Your combo is now 1x.")
             t.sleep(1)
     print("You no longer have any tokens. Goodbye.")
+    break
