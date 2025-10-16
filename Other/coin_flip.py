@@ -7,7 +7,7 @@ while True:
     tokens = 10    
     while tokens > 0:
         while True:
-            wager = (input(f"How much would you like to gamble? If you win, you double that much. You currently have {tokens} tokens.\n"))
+            wager = (input(f"Gamble. {tokens} tokens.\n"))
             if wager.isdigit() and int(wager) > tokens:
                 print(f"You can not wager that much.\n You only have {tokens} tokens.")
                 continue
@@ -54,12 +54,8 @@ while True:
             print(f"Your combo is now {combo}x")
             t.sleep(1)
         else:
-            print(f"You lost {wager} tokens.")
-            t.sleep(0.5)
             print(f"You now have {tokens} tokens.")
             t.sleep(0.5)
             combo = 1
-            print("Your combo is now 1x.")
-            t.sleep(1)
     print("You no longer have any tokens. Goodbye.")
-    break
+    continue
