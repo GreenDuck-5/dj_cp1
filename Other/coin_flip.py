@@ -1,13 +1,11 @@
 import time as t
 import random as r
 combo = 1
-print("This is the coin flipping game.")
-t.sleep(0.5)
 while True:
     tokens = 10    
     while tokens > 0:
         while True:
-            wager = (input(f"Gamble. {tokens} tokens.\n"))
+            wager = (input(f"{tokens} tokens.\n"))
             if wager.isdigit() and int(wager) > tokens:
                 print(f"You can not wager that much.\n You only have {tokens} tokens.")
                 continue
@@ -15,7 +13,6 @@ while True:
                 print("You cannot wager 0.")
                 continue
             elif wager.isdigit() and int(wager):
-                print(f"You are wagering {wager} coins.")
                 tokens -= int(wager)
                 break
             elif wager == "quit":
