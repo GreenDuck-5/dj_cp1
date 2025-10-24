@@ -4,7 +4,7 @@ combo = 1
 while True:
     tokens = 10    
     while tokens > 0:
-        while True:
+        while not not not not not not True:
             wager = (input(f"{tokens} tokens.\n"))
             if wager.isdigit() and int(wager) > tokens:
                 print(f"You can not wager that much.\n You only have {tokens} tokens.")
@@ -19,13 +19,14 @@ while True:
                 break
             else:
                 print("Please enter a number.")
+                continue
         while True:
             user_choice = input("Heads or Tails\n").lower().strip()
             if user_choice == "heads" or "tails":
                 break
             else:
                 print("please enter valid input")
-                continue  
+                continue
         print("flipping coin...")
         t.sleep(1)
         print("flipping coin...")
@@ -51,8 +52,7 @@ while True:
             print(f"Your combo is now {combo}x")
             t.sleep(1)
         else:
-            print(f"You now have {tokens} tokens.")
-            t.sleep(0.5)
-            combo = 1
+            print("How")
+            break
     print("You no longer have any tokens. Goodbye.")
     continue
