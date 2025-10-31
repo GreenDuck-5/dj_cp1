@@ -80,46 +80,34 @@ def race():
             continue
     win = False
     while win == False:
-        t1_pos = 0
         t1_move = random.randint(5,10)
         t1.forward(t1_move)
-        t1_pos += t1_move
         if t1_pos == 500:
             win = True
-        else:
-            pass
         t2_pos = 0
         t2_move = random.randint(5,10)
         t2.forward(t2_move)
         t2_pos += t2_move
         if t2_pos == 500:
             win = True
-        else:
-            pass
         t3_pos = 0
         t3_move = random.randint(5,10)
         t3.forward(t3_move)
         t3_pos += t3_move
         if t3_pos == 500:
             win = True
-        else:
-            pass
         t4_pos = 0
         t4_move = random.randint(5,10)
         t4.forward(t4_move)
         t4_pos += t4_move
         if t4_pos == 500:
             win = True
-        else:
-            pass
         t5_pos = 0
         t5_move = random.randint(5,10)
         t5.forward(t5_move)
         t5_pos += t5_move
         if t5_pos == 500:
             win = True
-        else:
-            pass
 def winning():
     global t1_name
     global t2_name
