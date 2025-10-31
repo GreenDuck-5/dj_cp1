@@ -13,22 +13,17 @@ def screen_setup():
     global t4
     global t5
     screen = turtle.Screen()
-    screen.setup(width=600,length=400)
+    screen.setup(600,400)
     screen.bgcolor("gray")
     finish_line = turtle.Turtle()
     finish_line.teleport(250,200)
     finish_line.right(90)
     finish_line.forward(400)
     t1 = turtle.Turtle()
-    t1.hideturtle()
     t2 = turtle.Turtle()
-    t2.hideturtle()
     t3 = turtle.Turtle()
-    t3.hideturtle()
     t4 = turtle.Turtle()
-    t4.hideturtle()
     t5 = turtle.Turtle()
-    t5.hideturtle()
     t1.color("RoyalBlue4")
     t1.shape("turtle")
     t1.teleport(-250,150)
@@ -77,7 +72,7 @@ def race():
             continue
     tokens = 10
     while True:
-        int(gamble = turtle.textinput("Gamble Amount", f"How many tokens would you like to gamble?\nYou have {tokens} tokens."))
+        gamble = int(turtle.textinput("Gamble Amount", f"How many tokens would you like to gamble?\nYou have {tokens} tokens."))
         if gamble <= tokens:
             tokens -= gamble
             break
