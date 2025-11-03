@@ -1,9 +1,5 @@
 #DJ, 1st, Maze Generator
-# import libraries to use
-import random
-import time
+#import libraries to use
 import turtle
-# build maze
-    # set maze outline
-    # set background color
-    # 
+import time
+import random
