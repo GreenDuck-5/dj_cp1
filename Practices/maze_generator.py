@@ -6,9 +6,12 @@ import random
 turtle.speed(0)
 turtle.shape("turtle")
 #setting size of cells and grid size, being rows by cols
-cell = 30
+cell = 20
 rows = 25
 cols = 25
+#setting variables that subtract how many rows actually generate
+rows_less = 2
+cols_less = 0
 #building the edge
 #teleporting to the point to start
 turtle.teleport(-cols*cell/2,rows*cell/2)
@@ -36,9 +39,9 @@ def draw_wall(x, y, direction):
     turtle.forward(cell)
     turtle.penup()
 #making the collum generate for every row
-for duck in range(rows-1):
+for duck in range(rows-rows_less):
     #generating collum row
-    for goose in range(cols):
+    for goose in range(cols-cols_less):
         #measring center of cell then center of screen, cetering evrything
         x = goose*cell-cols*cell/2
         y = duck*cell-rows*cell/2
