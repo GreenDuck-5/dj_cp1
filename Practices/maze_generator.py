@@ -12,43 +12,43 @@ cols = 25
 #building the edge
 #teleporting to the point to start
 turtle.teleport(-cols*cell/2,rows*cell/2)
-#drawing a line as long as necessary, based off what the row length and cell size it
+#drawng a line as long as necssary, based off what the row lngth and cell size it
 turtle.forward(cell*rows)
 turtle.right(90)
 #giving an enterence/exit
-turtle.forward((cell*cols)-cell)
+turtle.forward((cell*cols)-(cell*2))
 turtle.penup()
-turtle.forward(cell)
+turtle.forward(cell*2)
 turtle.pendown()
 turtle.right(90)
-#same as before
+#same as befor
 turtle.forward(cell*rows)
 turtle.right(90)
-turtle.forward((cell*cols)-cell)
+turtle.forward((cell*cols)-(cell*2))
 #setting wall drawing function
 def draw_wall(x, y, direction):
     turtle.penup()
     #going to cordanates based of the math below in the for loop
     turtle.goto(x, y)
-    #setting angle of turtle movement
     turtle.setheading(direction)
     turtle.pendown()
     #drawing the wall, moving forward however far "cell" is
     turtle.forward(cell)
     turtle.penup()
 #making the collum generate for every row
-for i in range(rows):
+for duck in range(rows-1):
     #generating collum row
-    for j in range(cols):
-        #measuring center of cell then center of screen, centering everything
-        x = j*cell-cols*cell/2
-        y = i*cell-rows*cell / 2
-        #randomly picking whether to run the wall building(1 in 3)
-        if random.choice([True, False, False]):
+    for goose in range(cols):
+        #measring center of cell then center of screen, cetering evrything
+        x = goose*cell-cols*cell/2
+        y = duck*cell-rows*cell/2
+        #randomly picking wether to run the wall building(1 in 3)
+        if random.choice([True, False, False, True, False, True, False, False, True, False, False]):
             #building a vertrical wall(90)
             draw_wall(x+cell,y,90)
-        if random.choice([True, False, False]):
-            #building a horizontal wall(0)
+        if random.choice([True, False, False, True, False, True, False, False, True, False, False]):
+            #building a hoizontal wall(0)
             draw_wall(x,y+cell,0)
-#doesn't end the program till user picks to
+turtle.hideturtle()
+#doesnt end the program till user picks to
 turtle.done()
