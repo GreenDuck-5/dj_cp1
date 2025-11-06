@@ -7,15 +7,20 @@ import turtle
 import random
 
 #set the turtle speed and making it's shape a turtle because turtles are awesome
-turtle.speed(0)
 turtle.shape("turtle")
+screen = turtle.Screen()
+screen.tracer(0)
+
+#hides the turtle
+turtle.hideturtle()
 
 #setting size of cells and grid size, being rows by cols
 cell = 5
-rows = 150
-cols = 150
+rows = 200
+cols = 200
 
 #building the edge
+
 
 #teleporting to the point to start
 turtle.teleport(-cols*cell/2,rows*cell/2)
@@ -66,9 +71,6 @@ for duck in range(rows-1):
 
 #blocking off the corner, just a failsafe for a too easy maze
 draw_wall(x+cell,y+cell,0)
-
-#hides the turtle
-turtle.hideturtle()
 
 #doesnt end the program till user picks to
 turtle.done()
