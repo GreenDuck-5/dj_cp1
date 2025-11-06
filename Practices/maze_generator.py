@@ -11,9 +11,9 @@ turtle.speed(0)
 turtle.shape("turtle")
 
 #setting size of cells and grid size, being rows by cols
-cell = 20
-rows = 25
-cols = 25
+cell = 5
+rows = 150
+cols = 150
 
 #building the edge
 
