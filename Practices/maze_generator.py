@@ -2,18 +2,19 @@
 
 # Just a note, this is impossible to generate it to be impossible, at least I believe so, in all my testing it has never generated an impossible maze
 
-#import libraries to use
+#import libraries(extra functions to use) to use
 import turtle
 import random
 
 #set the turtle speed and making it's shape a turtle because turtles are awesome
 turtle.shape("turtle")
-turtle.speed(0)
+screen = turtle.Screen()
+screen.tracer(0)
 
 #setting size of cells and grid size, being rows by cols
-cell = 25
-rows = 20
-cols = 20
+cell = 15
+rows = 40
+cols = 40
 
 #building the edge
 
@@ -73,6 +74,7 @@ build_outer_wall(cell,rows,cols)
 build_maze(cell,rows,cols)
 
 #hides the turtle
+screen.tracer(1)
 turtle.hideturtle()
 
 #doesnt end the program till user picks to
