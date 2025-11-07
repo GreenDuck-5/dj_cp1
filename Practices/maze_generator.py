@@ -8,38 +8,34 @@ import random
 
 #set the turtle speed and making it's shape a turtle because turtles are awesome
 turtle.shape("turtle")
-screen = turtle.Screen()
-screen.tracer(0)
-
-#hides the turtle
-turtle.hideturtle()
+turtle.speed(0)
 
 #setting size of cells and grid size, being rows by cols
-cell = 5
-rows = 200
-cols = 200
+cell = 25
+rows = 20
+cols = 20
 
 #building the edge
 
+def build_outer_wall(cell,rows,cols):
+    #teleporting to the point to start
+    turtle.teleport(-cols*cell/2,rows*cell/2)
 
-#teleporting to the point to start
-turtle.teleport(-cols*cell/2,rows*cell/2)
+    #drawng a line as long as necssary, based off what the row lngth and cell size it
+    turtle.forward(cell*rows)
+    turtle.right(90)
 
-#drawng a line as long as necssary, based off what the row lngth and cell size it
-turtle.forward(cell*rows)
-turtle.right(90)
+    #giving an enterence/exit
+    turtle.forward((cell*cols)-(cell*2))
+    turtle.penup()
+    turtle.forward(cell*2)
+    turtle.pendown()
+    turtle.right(90)
 
-#giving an enterence/exit
-turtle.forward((cell*cols)-(cell*2))
-turtle.penup()
-turtle.forward(cell*2)
-turtle.pendown()
-turtle.right(90)
-
-#same as befor
-turtle.forward(cell*rows)
-turtle.right(90)
-turtle.forward((cell*cols)-(cell*2))
+    #same as befor
+    turtle.forward(cell*rows)
+    turtle.right(90)
+    turtle.forward((cell*cols)-(cell*2))
 
 #setting wall drawing function
 def draw_wall(x, y, direction):
@@ -54,23 +50,30 @@ def draw_wall(x, y, direction):
     turtle.forward(cell)
     turtle.penup()
 
-#making the collum generate for every row
-for duck in range(rows-1):
-    #generating collum row
-    for goose in range(cols-1):
-        #measring center of cell then center of screen, cetering evrything
-        x = goose*cell-cols*cell/2
-        y = duck*cell-rows*cell/2
-        #randomly picking wether to run the wall building(4 in 11)
-        if random.choice([True, False, False, True, False, True, False, False, True, False, False]):
-            #building a vertrical wall(90) on the right side of the cell
-            draw_wall(x+cell,y,90)
-        if random.choice([True, False, False, True, False, True, False, False, True, False, False]):
-            #building a hoizontal wall(0) on the top of the cell
-            draw_wall(x,y+cell,0)
+def build_maze(cell,rows,cols):
+    #making the collum generate for every row
+    for i in range(rows-1):
+        #generating collum row
+        for j in range(cols-1):
+            #measring center of cell then center of screen, cetering evrything
+            x = j*cell-cols*cell/2
+            y = i*cell-rows*cell/2
+            #randomly picking wether to run the wall building(4 in 11)
+            if random.choice([True, False, False, True, False, True, False, False, True, False, False]):
+                #building a vertrical wall(90) on the right side of the cell
+                draw_wall(x+cell,y,90)
+            if random.choice([True, False, False, True, False, True, False, False, True, False, False]):
+                #building a hoizontal wall(0) on the top of the cell
+                draw_wall(x,y+cell,0)
+    #blocking off the corner, just a failsafe for a too easy maze
+    draw_wall(x+cell,y+cell,0)
 
-#blocking off the corner, just a failsafe for a too easy maze
-draw_wall(x+cell,y+cell,0)
+#calling the functions to happen
+build_outer_wall(cell,rows,cols)
+build_maze(cell,rows,cols)
+
+#hides the turtle
+turtle.hideturtle()
 
 #doesnt end the program till user picks to
 turtle.done()
