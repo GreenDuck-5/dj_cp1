@@ -70,11 +70,17 @@ menu = {
 }
 
 #ask user what main they want
-print("What whould you like for your main?")
-for item, price in menu["mains"]:
-    print(f"{item}: ${price}")
     #Loop through the mains, listing them all for user
+item_number = 1
+print("What whould you like for your main?")
+for item, price in menu["mains"].items():
+    print(f"{item_number}.) {item} : ${price}")
+    item_number += 1
 #let them pick one, add to list of user order
+while True:
+    user_main = input("Please pick one:\n")
+    if user_main.isdigit():
+        break
 
 #ask user what drink they want
     #Loop through the drinks, listing them all for user
