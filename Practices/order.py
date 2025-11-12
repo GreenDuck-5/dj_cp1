@@ -157,7 +157,7 @@ def side_order(user_order,menu):
         break
     #ask user what sides(2) they want
     item_number = 1
-    print("What whould you like for your first side?")
+    print("What whould you like for your second side?")
         #Loop through the sides, listing them all for user
     for item, price in menu["sides"].items():
         print(f"{item_number}.) {item} : ${price}")
@@ -182,9 +182,18 @@ def side_order(user_order,menu):
             continue
         break
 
-#ask user what dessert they want
-    #Loop through the dessert, listing them all for user
+def dessert_order(menu,user_order):
+    #ask user what dessert they want
+    item_number = 1
+    print("What whould you like for your first side?")
+        #Loop through the desserts, listing them all for user
+    for item, price in menu["desserts"].items():
+        print(f"{item_number}.) {item} : ${price}")
+        item_number += 1
 #let them pick one, add to list of user order
+
+
+
 
 #list the users order, let them pick whether correct or not
     # if not correct, restart at the beginning
