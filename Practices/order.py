@@ -185,21 +185,55 @@ def side_order(user_order,menu):
 def dessert_order(menu,user_order):
     #ask user what dessert they want
     item_number = 1
-    print("What whould you like for your first side?")
+    print("What whould you like for your dessert?")
         #Loop through the desserts, listing them all for user
-    for item, price in menu["desserts"].items():
+    for item, price in menu["dessert"].items():
         print(f"{item_number}.) {item} : ${price}")
         item_number += 1
 #let them pick one, add to list of user order
+    while True:
+        while True:
+            user_side_two = input("Please pick one:\n")
+            if user_side_two.isdigit():
+                break
+        if user_side_two == "1":
+            user_order["Cinnamon Twists"] = 1.29
+        elif user_side_two == "2":
+            user_order["Cinnabon Delights 12 Pack"] = 7.19
+        elif user_side_two == "3":
+            user_order["Milk Bar Birthday Cake Churros (2 Pack)"] = 2.99
+        elif user_side_two == "4":
+            user_order["Baja Blast Pie"] = 10.92
+        else:
+            continue
+        break
 
 
 
-
-#list the users order, let them pick whether correct or not
-    # if not correct, restart at the beginning
-    # if correct, give them the bill
-
-
+while True:
+    main_order(user_order, menu)
+    drink_order(user_order, menu)
+    side_order(user_order, menu)
+    dessert_order(menu, user_order)
+    #list the users order, let them pick whether correct or not
+    print("Your order is:")
+    for item in user_order:
+        print(f"{item}")
+    while True:
+        is_correct = input("Is this correct?\n").strip().lower()
+        yes = ["yes","yuh","ye","yerp","yeah","yu","absolutly","positive","yess"]
+        no = ["no","nah","nuh","ne","nope","negative","noo"]
+            # if not correct, restart at the beginning
+        if is_correct in no:
+            break
+            # if correct, give them the bill
+        elif is_correct in yes:
+            pass
+        else:
+            print("Please enter valid input")
+    if is_correct in no:
+        continue
+    
 
 #other ideas
     #taxes are 4.55 percent
