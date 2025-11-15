@@ -49,6 +49,8 @@ menu = {
     }
 }
 
+#setting tax
+taxes = 4.55
 #setting user order
 user_order = {}
 
@@ -209,7 +211,6 @@ def dessert_order(menu,user_order):
         break
 
 
-
 while True:
     main_order(user_order, menu)
     drink_order(user_order, menu)
@@ -217,8 +218,11 @@ while True:
     dessert_order(menu, user_order)
     #list the users order, let them pick whether correct or not
     print("Your order is:")
-    for item in user_order:
-        print(f"{item}")
+    total = 0
+    for item, price in user_order.items():
+        print(f"{item} : ${price}")
+        total += price
+    print(f"The total is: ${total}")
     while True:
         is_correct = input("Is this correct?\n").strip().lower()
         yes = ["yes","yuh","ye","yerp","yeah","yu","absolutly","positive","yess"]
@@ -226,20 +230,12 @@ while True:
             # if not correct, restart at the beginning
         if is_correct in no:
             break
-            # if correct, give them the bill
+            # if correct, thank them for their order
         elif is_correct in yes:
-            pass
+            print("Thank you for eating at our establishment.")
+            break
         else:
             print("Please enter valid input")
     if is_correct in no:
         continue
-    
-
-#other ideas
-    #taxes are 4.55 percent
-    #maybe make it a rougelike where they have to eat everyday, and the only way to make money is gambling
-    #make it so that the player can run the resturant, people are buying and the player has to restock
-    #have the ability to invest in the resturant
-    #add tip option
-    #add round up for the hospitalized kids
-    #add different menus for different times of day
+    break
