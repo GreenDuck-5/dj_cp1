@@ -2,7 +2,7 @@
 def hello(name, age):
     return f"hello {name}"
 
-hello(age = 23, name = "Xaveir")
+print(hello(age = 23, name = "Xaveir"))
 
 
 #What are positional arguments?
@@ -18,5 +18,18 @@ hello(age = 23, name = "Xaveir")
 
 
 #How do alter a function to take in an unknown number of arguments?
-# with the * and **
+# they will ne stored with *(for list) or **(for dictionary)
 
+def summary(**story):
+    sum = ""
+    if "name" in story.keys():
+        sum += f"{story['name']} is teh main character of this story"
+    if "place" in story.keys():
+        sum += f"The story takes place in {story['place']}."
+    if "conflict" in story.keys():
+        sum +=f"The problem is {story['conflict']}."
+    
+    return sum
+
+print(summary(name = "Luke Skywalker", place = "A galaxy far far away"))
+print(summary(name = "Harry Potter", conflict = "Evil wizard wants to kill him"))
