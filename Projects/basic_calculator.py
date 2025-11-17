@@ -1,10 +1,8 @@
 #DJ, 1st, basic calculator
-running = True
-
-while running:
+while True:
     run = input("Would you like you to run the program?: ").lower().strip()
     if run == "no":
-        running = False
+        break
 
     else:
 
@@ -24,5 +22,3 @@ while running:
         print(f"{number_one} / {number_two} = {division}")
         print(f"{number_one} // {number_two} = {integer_division}")
         print(f"{number_one} % {number_two} = {modulo}")
-
-name = "Clang"
