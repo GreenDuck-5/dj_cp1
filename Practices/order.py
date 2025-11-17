@@ -49,8 +49,6 @@ menu = {
     }
 }
 
-#setting tax
-taxes = 4.55
 #setting user order
 user_order = {}
 
@@ -184,7 +182,7 @@ def side_order(user_order,menu):
             continue
         break
 
-def dessert_order(menu,user_order):
+def dessert_order(user_order, menu):
     #ask user what dessert they want
     item_number = 1
     print("What whould you like for your dessert?")
@@ -215,7 +213,7 @@ while True:
     main_order(user_order, menu)
     drink_order(user_order, menu)
     side_order(user_order, menu)
-    dessert_order(menu, user_order)
+    dessert_order(user_order, menu)
     #list the users order, let them pick whether correct or not
     print("Your order is:")
     total = 0
