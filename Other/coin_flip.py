@@ -52,7 +52,7 @@ while True:
             print(f"Your combo is now {combo}x")
             t.sleep(1)
         else:
-            print("How")
-            break
+            print("Yikes")
+            combo = 1
     print("You no longer have any tokens. Goodbye.")
     continue
