@@ -20,3 +20,9 @@ def nums_max():
     maxs = max(nums)
     print(f"Calculating max of: {nums}")
     print(f"Result: {maxs}\n")
+def nums_product():
+    total = nums[0]
+    for num in nums:
+        total*num
+    print(f"Calculating poduct of: {nums}")
+    print(f"Result: {total}\n")
