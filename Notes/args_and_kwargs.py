@@ -23,7 +23,7 @@ print(hello(age = 23, name = "Xaveir"))
 def summary(**story):
     sum = ""
     if "name" in story.keys():
-        sum += f"{story['name']} is teh main character of this story"
+        sum += f"{story['name']} is the main character of this story"
     if "place" in story.keys():
         sum += f"The story takes place in {story['place']}."
     if "conflict" in story.keys():
