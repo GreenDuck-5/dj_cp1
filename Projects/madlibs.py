@@ -3,7 +3,7 @@ name = "Clang"
 
 adjective_1 = input("Give me an adjective: ") #1
 
-animal = input("Give me an animal: ") #2 #16
+animal = input("Give me an animal, plural: ") #2 #16
 
 verb_1 = input("Give me a verb, present tense: ") #3
 
