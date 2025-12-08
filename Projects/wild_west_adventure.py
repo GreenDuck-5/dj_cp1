@@ -1,3 +1,7 @@
+# DJ, 1st, Text Based Adventure
+import time as t
+import random as r
+
 phoenix_brooks = {
 	"Health": 25,
 	"Morale": 10,
@@ -14,7 +18,7 @@ weapons = {
         "Boot": 10
     },
 
-    "Range_m": {
+    "Range": {
         "Fist": 1,
         "Pistol": 45,
         "Rifle": 1375,
@@ -120,3 +124,87 @@ weapons = {
     }
 }
 
+availible_locations = ("Saloon", "Inn", "Casino")
+
+def introduction(phoenix_brooks):
+    print("Old Man: ‘Howdy, Phoenix! Welcome to Ember Bend! It’s a neat little town. At least it was. But that was before the new sheriff came into town, 15 years he’s made this place a living hell. But I’m sure you knew that. That’s why you’re here, Mr. Brooks, no?’")
+    t.sleep(1.5)
+    while True:
+        choice_one = input("1.) Yes. For honor.\n2.) No. For money.\n3.) Yes. For you.\n")
+        if choice_one == "1":
+            print("Phoenix: ‘Of course, only a man with no honor would abandon his home town when it is in need’")
+            t.sleep(1)
+            phoenix_brooks["Honor"] += 5
+            print("The old man will remember that.")
+            t.sleep(1)
+            print("Old Man: ‘Atta boy. I raised you right, that’s evident to me’")
+            t.sleep(1)
+            break
+        elif choice_one == "2":
+            print("Phoenix: ‘I am not here for you old man. I am here to make money, and if I stop the sheriff while I'm at it, that’s fine. But it is not my goal.")
+            t.sleep(1)
+            phoenix_brooks["Honor"] -= 5
+            print("The old man will remember that.")
+            t.sleep(1)
+            break
+        elif choice_one == "3":
+            print("Phoenix: ‘Yes. I am here for you, my friend. It has been too long. How you been?’")
+            t.sleep(1)
+            phoenix_brooks["Morale"] += 5
+            print("The old man will remember that.")
+            t.sleep(1)
+            break
+        else:
+            print("Please enter valid input.")
+            continue
+    return
+
+def saloon():
+    pass
+
+def inn():
+    pass
+
+def casino():
+    pass
+
+def mine():
+    pass
+
+def station():
+    pass
+
+def bank():
+    pass
+
+def store():
+    pass
+
+def jail():
+    pass
+
+def shooting_range():
+    pass
+
+def user_turn():
+    pass
+
+def sheriff_turn():
+    pass
+
+def bandits_turn():
+    pass
+
+def sheriff_fight():
+    pass
+
+def bandit_fight():
+    pass
+
+def location_move():
+    print("Which would you like you like to go to?")
+    num = 1
+    for place in availible_locations:
+        print(f"{num}.) {place}")
+        num += 1
+    new_loc = input()
