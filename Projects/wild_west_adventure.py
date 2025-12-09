@@ -9,7 +9,6 @@ phoenix_brooks = {
 	"Money": 100,
 }
 availible_weapons = ("Fist", "Pistol", "Boot")
-availible_locations = ("Saloon", "Inn", "Casino")
 
 fist = {
     "Damage": 5,
@@ -160,7 +159,7 @@ def introduction(phoenix_brooks):
     return
 
 def saloon():
-    pass
+    print("You walk up to the saloon, the massive sign at the front reads: ‘The High Noon Saloon’")
 
 def inn():
     pass
@@ -203,8 +202,37 @@ def bandit_fight():
 
 def location_move():
     print("Which would you like you like to go to?")
-    num = 1
-    for place in availible_locations:
-        print(f"{num}.) {place}")
-        num += 1
-    new_loc = input().strip()
+    print("1.) Saloon\n2.) Inn\n3.) Casino\n4.) Mine\n5.) Train Station\n6.) Bank\n7.) General Store\n8.) Jail\n9.) Shooting Range")
+    while True:
+        new_loc = input().strip()
+        if new_loc == "1":
+            saloon()
+            break
+        elif new_loc == "2":
+            inn()
+            break
+        elif new_loc == "3":
+            casino()
+            break
+        elif new_loc == "4":
+            mine()
+            break
+        elif new_loc == "5":
+            station()
+            break
+        elif new_loc == "6":
+            bank()
+            break
+        elif new_loc == "7":
+            store()
+            break        
+        elif new_loc == "8":
+            jail()
+            break
+        elif new_loc == "9":
+            shooting_range()
+            break
+        else:
+            print("Please enter valid input.")
+            continue
+
