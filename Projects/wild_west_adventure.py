@@ -126,7 +126,7 @@ boot = {
 }
 
 def introduction(phoenix_brooks):
-    print("Old Man: ‘Howdy, Phoenix! Welcome to Ember Bend! It’s a neat little town. At least it was. But that was before the new sheriff came into town, 15 years he’s made this place a living hell. But I’m sure you knew that. That’s why you’re here, Mr. Brooks, no?’")
+    print("Old Man: ‘Howdy, Phoenix! Welcome to Ember Bend! It’s a neat little town, at least it was. But that was before the new sheriff came into town, 15 years he’s made this place a living hell. But I’m sure you knew that. That’s why you’re here, Mr. Brooks, no?’")
     t.sleep(1.5)
     while True:
         choice_one = input("1.) Yes. For honor.\n2.) No. For money.\n3.) Yes. For you.\n")
@@ -159,40 +159,31 @@ def introduction(phoenix_brooks):
     return
 
 def saloon():
-    print("You walk up to the saloon, the massive sign at the front reads: ‘The High Noon Saloon’")
+    print("You walk up to the saloon, the massive sign at the front reads: ‘The High Noon Saloon’\nYou have seen this building many times, but never in it.\nYou never liked the yelling and crashing.")
 
 def inn():
-    pass
+    print("inn")
 
 def casino():
-    pass
+    print("casino")
 
 def mine():
-    pass
+    print("mine")
 
 def station():
-    pass
+    print("station")
 
 def bank():
-    pass
+    print("bank")
 
 def store():
-    pass
+    print("store")
 
 def jail():
-    pass
+    print("jail")
 
 def shooting_range():
-    pass
-
-def user_turn():
-    pass
-
-def sheriff_turn():
-    pass
-
-def bandits_turn():
-    pass
+    print("shooting range")
 
 def sheriff_fight():
     pass
@@ -236,3 +227,5 @@ def location_move():
             print("Please enter valid input.")
             continue
 
+introduction(phoenix_brooks)
+location_move()
