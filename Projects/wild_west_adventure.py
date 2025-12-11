@@ -10,6 +10,18 @@ phoenix_brooks = {
 }
 availible_weapons = ("Fist", "Pistol", "Boot")
 
+saloon_visited = False
+inn_visited = False
+casino_visited = False
+mine_visited = False
+station_visited = False
+bank_visited = False
+store_visited = False
+jail_visited = False
+shooting_range_visited = False
+saloon_fight = False
+jail_break = False
+
 fist = {
     "Damage": 5,
     "Range": 1,
@@ -131,12 +143,12 @@ def introduction(phoenix_brooks):
     while True:
         choice_one = input("1.) Yes. For honor.\n2.) No. For money.\n3.) Yes. For you.\n")
         if choice_one == "1":
-            print("Phoenix: ‘Of course, only a man with no honor would abandon his home town when it is in need’")
+            print("Phoenix: ‘Of course, only a man with no honor would abandon his home town when it is in need.’")
             t.sleep(1)
             phoenix_brooks["Honor"] += 5
             print("The old man will remember that.")
             t.sleep(1)
-            print("Old Man: ‘Atta boy. I raised you right, that’s evident to me’")
+            print("Old Man: ‘Atta boy. I raised you right, that’s evident to me.’")
             t.sleep(1)
             break
         elif choice_one == "2":
@@ -149,6 +161,7 @@ def introduction(phoenix_brooks):
         elif choice_one == "3":
             print("Phoenix: ‘Yes. I am here for you, my friend. It has been too long. How you been?’")
             t.sleep(1)
+            print("Old Man: ‘Thank you.’")
             phoenix_brooks["Morale"] += 5
             print("The old man will remember that.")
             t.sleep(1)
@@ -160,7 +173,49 @@ def introduction(phoenix_brooks):
 
 def saloon():
     print("You walk up to the saloon, the massive sign at the front reads: ‘The High Noon Saloon’\nYou have seen this building many times, but never in it.\nYou never liked the yelling and crashing.")
-
+    t.sleep(2)
+    print("Opening the saloon doors, you can now see what it’s like.\nIt’s loud, but it’s just people having a good time.")
+    t.sleep(2)
+    print("You walk up to the bartender, asking for a drink.")
+    t.sleep(1)
+    print("Bartender: ‘5 coins’")
+    t.sleep(1)
+    while True:
+        choice_two = input(f"1.) Pay: You have {phoenix_brooks["Money"]} coins\n2.) Punch him\n3.) Haggle\n")
+        if choice_two == "1":
+            phoenix_brooks["Money"] -= 5
+            print("You pay for the drink. It's some good orange juice. You are now fully healed.")
+            print("You walk out, feeling satisfied.")
+            phoenix_brooks["Health"] = 25
+            saloon_visited = True
+            return
+        elif choice_two == "2":
+            print("fight")
+            return
+        elif choice_two == "3":
+            print("Phoenix: ‘I can do 3’\nBartender: ‘4’")
+            while True:
+                choice_three = input("1.) Take the deal\n2.) Leave\n3.) Punch him")
+                if choice_three == "1":
+                    print("Phoenix: ‘Aight, that works.’")
+                    phoenix_brooks["Health"] = 25
+                    phoenix_brooks["Money"] -= 4
+                    saloon_visited = True
+                    return
+                elif choice_three == "2":
+                    print("Phoenix: ‘Nah, I'll pass.’")
+                    print("You leave.")
+                    saloon_visited = True
+                    return
+                elif choice_three == "3":
+                    print("fight")
+                    return
+                else:
+                    print("Please enter valid input")
+                continue
+        else:
+            print("Please enter valid input")
+            continue
 def inn():
     print("inn")
 
@@ -229,3 +284,4 @@ def location_move():
 
 introduction(phoenix_brooks)
 location_move()
+print("jkgsadk")
