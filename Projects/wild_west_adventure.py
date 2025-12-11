@@ -190,12 +190,12 @@ def saloon():
             saloon_visited = True
             return
         elif choice_two == "2":
-            print("fight")
+            print("Where would you like to hit:")
             return
         elif choice_two == "3":
             print("Phoenix: ‘I can do 3’\nBartender: ‘4’")
             while True:
-                choice_three = input("1.) Take the deal\n2.) Leave\n3.) Punch him")
+                choice_three = input("1.) Take the deal\n2.) Leave\n3.) Punch him\n")
                 if choice_three == "1":
                     print("Phoenix: ‘Aight, that works.’")
                     phoenix_brooks["Health"] = 25
