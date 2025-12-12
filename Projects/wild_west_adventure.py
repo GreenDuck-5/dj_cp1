@@ -9,6 +9,7 @@ phoenix_brooks = {
 	"Money": 100,
 }
 availible_weapons = ("Fist", "Pistol", "Boot")
+items = ()
 
 saloon_visited = False
 inn_visited = False
@@ -22,6 +23,7 @@ jail_visited = False
 shooting_range_visited = False
 saloon_fight = False
 jail_break = False
+dead = False
 
 fist = {
     "Damage": 5,
@@ -172,20 +174,35 @@ def introduction(phoenix_brooks):
             continue
     return
 
-def saloon():
-    print("You walk up to the saloon, the massive sign at the front reads: ‘The High Noon Saloon’\nYou have seen this building many times, but never in it.\nYou never liked the yelling and crashing.")
-    t.sleep(2)
-    print("Opening the saloon doors, you can now see what it’s like.\nIt’s loud, but it’s just people having a good time.")
-    t.sleep(2)
-    print("You walk up to the bartender, asking for a drink.")
-    t.sleep(1)
-    print("Bartender: ‘5 coins’")
-    t.sleep(1)
+def saloon(phoenix_brooks):
+    if saloon_visited == False:
+        print("You walk up to the saloon, the massive sign at the front reads: ‘The High Noon Saloon’\nYou have seen this building many times, but never in it.\nYou never liked the yelling and crashing.")
+        t.sleep(2)
+        print("Opening the saloon doors, you can now see what it’s like.\nIt’s loud, but it’s just people having a good time.")
+        t.sleep(2)
+        print("You walk up to the bartender, asking for a drink.")
+        t.sleep(1)
+        print("Bartender: ‘5 coins’")
+        t.sleep(1)
+    elif saloon_visited == True and saloon_fight == False:
+        print("You walk up to the bartender, asking for a drink.")
+        t.sleep(1)
+        print("Bartender: ‘5 coins’")
+        t.sleep(1)
+    elif saloon_fight == True:
+        print("You walk in, the place is destroyed from the tumble you caused.\nThe bartender is there, cleaning up.\nHe spots you walk in.")
+        t.sleep(1)
+        print("Bartender: ‘YOU! YOU RUINED MY ESTABLISHMENT! HECK YOU!’")
+        t.sleep(1)
+        print("He runs up to you, punching you in the face.")
+        t.sleep(1)
+        choice_blerg = input("1.) Apologize and help him\n2.) Punch him back\n3.) Leave")
+        print("Phoenix: ")
     while True:
-        choice_two = input(f"1.) Pay: You have {phoenix_brooks["Money"]} coins\n2.) Punch him\n3.) Haggle\n")
+        choice_two = input(f"1.) Pay: You have {phoenix_brooks["Money"]} coins\n2.) Punch him\n3.) Haggle\n4.) Leave\n")
         if choice_two == "1":
             phoenix_brooks["Money"] -= 5
-            print("You pay for the drink. It's some good orange juice. You are now fully healed.")
+            print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
             print("You walk out, feeling satisfied.")
             phoenix_brooks["Health"] = 25
             saloon_visited = True
@@ -213,47 +230,51 @@ def saloon():
                     saloon_fight = True
                     saloon_visited = True
                     return
+                elif choice_three == "4":
+                    saloon_visited = True
+                    print("You leave.")
+                    return
                 else:
                     print("Please enter valid input")
                 continue
         else:
             print("Please enter valid input")
             continue
-def inn():
+def inn(phoenix_brooks):
     print("inn")
 
-def casino():
+def casino(phoenix_brooks):
     print("You walk into the casino. Bright lights, and a heck ton of machines. A few tables as well.")
     while True:
         choice_ugh = input("Where do you want to go?\n1.) Coin flips\n2.) Blackjack\n3.) Poker\n4.) Slots\n")
         return
 
-def mine():
+def mine(phoenix_brooks):
     print("mine")
 
-def station():
+def station(phoenix_brooks):
     print("station")
 
-def bank():
+def bank(phoenix_brooks):
     print("bank")
 
-def store():
+def store(phoenix_brooks):
     print("store")
 
-def jail():
+def jail(phoenix_brooks):
     print("jail")
 
-def shooting_range():
+def shooting_range(phoenix_brooks):
     print("shooting range")
 
-def sheriff_fight():
+def sheriff_fight(phoenix_brooks):
     pass
 
-def bandit_fight():
+def bandit_fight(phoenix_brooks):
     pass
 
-def bar_fight():
-    pass
+def bar_fight(phoenix_brooks):
+    print("You punch him in the face.")
 
 def location_move():
     print("Which would you like you like to go to?")
@@ -261,36 +282,35 @@ def location_move():
     while True:
         new_loc = input().strip()
         if new_loc == "1":
-            saloon()
+            saloon(phoenix_brooks)
             break
         elif new_loc == "2":
-            inn()
+            inn(phoenix_brooks)
             break
         elif new_loc == "3":
-            casino()
+            casino(phoenix_brooks)
             break
         elif new_loc == "4":
-            mine()
+            mine(phoenix_brooks)
             break
         elif new_loc == "5":
-            station()
+            station(phoenix_brooks)
             break
         elif new_loc == "6":
-            bank()
+            bank(phoenix_brooks)
             break
         elif new_loc == "7":
-            store()
+            store(phoenix_brooks)
             break        
         elif new_loc == "8":
-            jail()
+            jail(phoenix_brooks)
             break
         elif new_loc == "9":
-            shooting_range()
+            shooting_range(phoenix_brooks)
             break
         else:
             print("Please enter valid input.")
             continue
 
 introduction(phoenix_brooks)
-location_move()
-print("jkgsadk")
+location_move(phoenix_brooks)
