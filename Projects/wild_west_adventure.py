@@ -191,7 +191,8 @@ def saloon():
             saloon_visited = True
             return
         elif choice_two == "2":
-            print("Where would you like to hit:")
+            saloon_fight = True
+            saloon_visited = True
             return
         elif choice_two == "3":
             print("Phoenix: ‘I can do 3’\nBartender: ‘4’")
@@ -209,7 +210,8 @@ def saloon():
                     saloon_visited = True
                     return
                 elif choice_three == "3":
-                    print("fight")
+                    saloon_fight = True
+                    saloon_visited = True
                     return
                 else:
                     print("Please enter valid input")
@@ -223,53 +225,8 @@ def inn():
 def casino():
     print("You walk into the casino. Bright lights, and a heck ton of machines. A few tables as well.")
     while True:
-        choice_six_seven = input("Where do you want to go?\n1.) Coin flips\n2.) Blackjack\n3.) Poker\n4.) Slots")
-        if choice_six_seven == "1":
-            combo = 1
-            while True:
-                user_choice = input("Heads or Tails\n").lower().strip()
-                if user_choice == "heads" or "tails":
-                    break
-                else:
-                    print("please enter valid input")
-                    continue
-                print("flipping coin...")
-                t.sleep(1)
-                print("flipping coin...")
-                t.sleep(1)
-                print("flipping coin...")
-                coin = r.randint(1,2)
-                if coin == 1:
-                    coin = "heads"
-                elif coin == 2:
-                    coin = "tails"
-                t.sleep(1)
-                print(f"The coin is {coin}.")
-                t.sleep(1)
-                if user_choice == coin:
-                    print("You win!")
-                    t.sleep(0.5)
-                    print(f"You won {(int(wager)*2)*combo} money")
-                    t.sleep(0.5)
-                    phoenix_brooks["Money"] += (int(wager)*2)*combo
-                    print(f"You now have {phoenix_brooks["Money"]} money.")
-                    combo *= 2
-                    t.sleep(0.5)
-                    print(f"Your combo is now {combo}x")
-                    t.sleep(1)
-                    choice_eight = input("Do you want to quit?").lower().strip()
-                    if choice_eight == "yes":
-                        break
-                else:
-                    print("Yikes")
-                    combo = 1
-                    choice_eight = input("Do you want to quit?").lower().strip()
-                    if choice_eight == "yes":
-                        break
-        else:
-            print("Please enter valid input.")
-            continue
-
+        choice_ugh = input("Where do you want to go?\n1.) Coin flips\n2.) Blackjack\n3.) Poker\n4.) Slots\n")
+        return
 
 def mine():
     print("mine")
@@ -293,6 +250,9 @@ def sheriff_fight():
     pass
 
 def bandit_fight():
+    pass
+
+def bar_fight():
     pass
 
 def location_move():
