@@ -41,14 +41,12 @@ def symbol_multiplier(symbol):
     return 0
 
 def main():
-    balance = 100
-    print("********************************")
-    print("      Welcome to slots!  ")
+    money = 100
+    print("   Welcome to slots!")
     print("Symbols: 🍒 🍉 🍋 🥑 ⭐")
-    print("********************************")
 
-    while balance > 0:
-        print(f"\nCurrent balance: ${balance}")
+    while money > 0:
+        print(f"\nCurrent money: ${money}")
         
         bet = input("Place your bet amount: $")
         
@@ -58,14 +56,14 @@ def main():
 
         bet = int(bet)
 
-        if bet > balance:
+        if bet > money:
             print("You don't got that much.")
             continue
         elif bet <= 0:
             print("Bet must be greater than 0.")
             continue
 
-        balance -= bet
+        money -= bet
         print("\nSpinning...\n")
         grid = spin_grid()
         print_grid(grid)
@@ -73,11 +71,11 @@ def main():
         payout = get_payout(grid, bet)
         if payout > 0:
             print(f"You won ${payout}!")
-            balance += payout
+            money += payout
         else:
             print("You lost.")
 
-        if balance == 0:
+        if money == 0:
             print("\nNo more money!")
             break
 
@@ -85,9 +83,10 @@ def main():
         if play_again != 'Y':
             break
 
-    print("\n*********************************************")
-    print(f"Game over! Your final balance is ${balance}")
-    print("*********************************************")
+    print(f"Game over!")
 
-if __name__ == '__main__':
+while True:
     main()
+    choice = input("Do you want to play again? Y/N:\n").upper()
+    if choice != "Y":
+        break
