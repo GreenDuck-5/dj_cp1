@@ -1,5 +1,6 @@
 import os
 import random
+import time
 
 def clear_screen():
     if os.name == 'nt':
@@ -85,7 +86,7 @@ def game():
                 break
             continue
         while True:
-            choice = input("Do you want to Hit, Stand, or Quit? ").strip().lower()
+            choice = input("Do you want to Hit or Stand:\n").strip().lower()
             if choice == 'hit':
                 hit(current_deck, player_hand)
                 print_hands(player_hand, dealer_hand)
@@ -94,9 +95,6 @@ def game():
                     break
             elif choice == 'stand':
                 break
-            elif choice == 'quit':
-                print("Thanks for playing! Goodbye.")
-                return
             else:
                 print("Please enter valid input.")
         while calculate_total(dealer_hand) < 17:

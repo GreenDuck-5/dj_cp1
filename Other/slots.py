@@ -1,5 +1,13 @@
 import random
 import time as t
+import os
+
+def clear_screen():
+    if os.name == 'nt':
+        os.system('CLS')
+    else:
+        os.system('clear')
+
 
 def spin_grid():
     symbols = ['C', 'W', 'L', 'A', 'S']
@@ -90,3 +98,5 @@ while True:
     choice = input("Do you want to play again? Y/N:\n").upper()
     if choice != "Y":
         break
+    else:
+        clear_screen()
