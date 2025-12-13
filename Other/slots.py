@@ -1,7 +1,6 @@
 import random
 
 def spin_grid():
-    """Spin a 3x3 grid and return it as a list of lists."""
     symbols = ['🍒', '🍉', '🍋', '🥑', '⭐']
     return [[random.choice(symbols) for _ in range(3)] for _ in range(3)]
 
