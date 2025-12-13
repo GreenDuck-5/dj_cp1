@@ -2,7 +2,7 @@ import random
 import time as t
 
 def spin_grid():
-    symbols = ['🍒', '🍉', '🍋', '🥑', '⭐']
+    symbols = ['C', 'W', 'L', 'A', 'S']
     return [[random.choice(symbols) for _ in range(3)] for _ in range(3)]
 
 def print_grid(grid):
@@ -26,22 +26,22 @@ def get_payout(grid, bet):
     return payout
 
 def symbol_multiplier(symbol):
-    if symbol == '🍒':
+    if symbol == 'C':
         return 3
-    elif symbol == '🍉':
+    elif symbol == 'W':
         return 4
-    elif symbol == '🍋':
+    elif symbol == 'L':
         return 5
-    elif symbol == '🥑':
+    elif symbol == 'A':
         return 10
-    elif symbol == '⭐':
+    elif symbol == 'S':
         return 20
     return 0
 
 def main():
     money = 100
     print("   Welcome to slots!")
-    print("Symbols: 🍒 🍉 🍋 🥑 ⭐")
+    print("Symbols: C W L A S")
 
     while money > 0:
         print(f"\nCurrent money: ${money}")
