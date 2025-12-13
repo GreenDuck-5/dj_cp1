@@ -13,12 +13,10 @@ def print_grid(grid):
 def get_payout(grid, bet):
     payout = 0
 
-    # Check rows
     for row in grid:
         if row[0] == row[1] == row[2]:
             payout += symbol_multiplier(row[0]) * bet
 
-    # Check diagonals
     if grid[0][0] == grid[1][1] == grid[2][2]:
         payout += symbol_multiplier(grid[0][0]) * bet
     if grid[0][2] == grid[1][1] == grid[2][0]:
