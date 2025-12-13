@@ -1,7 +1,7 @@
 # DJ, 1st, Text Based Adventure
 import time as t
 import random as r
-
+import os
 
 phoenix_brooks = {
 	"Health": 25,
@@ -141,6 +141,12 @@ boot = {
     }
 }
 
+def clear_screen():
+    if os.name == 'nt':
+        os.system('CLS')
+    else:
+        os.system('clear')
+
 def introduction(phoenix_brooks):
     print("Old Man: ‘Howdy, Phoenix! Welcome to Ember Bend! It’s a neat little town, at least it was. But that was before the new sheriff came into town, 15 years he’s made this place a living hell. But I’m sure you knew that. That’s why you’re here, Mr. Brooks, no?’")
     t.sleep(1.5)
@@ -178,18 +184,102 @@ def introduction(phoenix_brooks):
 def saloon(phoenix_brooks, saloon_visited, saloon_fight):
     if saloon_visited == False:
         print("You walk up to the saloon, the massive sign at the front reads: ‘The High Noon Saloon’\nYou have seen this building many times, but never in it.\nYou never liked the yelling and crashing.")
-        t.sleep(2)
+        t.sleep(1)
         print("Opening the saloon doors, you can now see what it’s like.\nIt’s loud, but it’s just people having a good time.")
-        t.sleep(2)
+        t.sleep(1)
         print("You walk up to the bartender, asking for a drink.")
         t.sleep(1)
         print("Bartender: ‘5 coins’")
         t.sleep(1)
+        while True:
+            choice_two = input(f"1.) Pay: You have {phoenix_brooks["Money"]} coins\n2.) Punch him\n3.) Haggle\n4.) Leave\n")
+            if choice_two == "1":
+                phoenix_brooks["Money"] -= 5
+                print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
+                print("You walk out, feeling satisfied.")
+                phoenix_brooks["Health"] = 25
+                saloon_visited = True
+                return
+            elif choice_two == "2":
+                saloon_fight = True
+                saloon_visited = True
+                return
+            elif choice_two == "3":
+                print("Phoenix: ‘I can do 3’\nBartender: ‘4’")
+                while True:
+                    choice_three = input("1.) Take the deal\n2.) Leave\n3.) Punch him\n")
+                    if choice_three == "1":
+                        print("Phoenix: ‘Aight, that works.’")
+                        phoenix_brooks["Health"] = 25
+                        phoenix_brooks["Money"] -= 4
+                        saloon_visited = True
+                        return
+                    elif choice_three == "2":
+                        print("Phoenix: ‘Nah, I'll pass.’")
+                        print("You leave.")
+                        saloon_visited = True
+                        return
+                    elif choice_three == "3":
+                        saloon_fight = True
+                        saloon_visited = True
+                        return
+                    elif choice_three == "4":
+                        saloon_visited = True
+                        print("You leave.")
+                        return
+                    else:
+                        print("Please enter valid input")
+                    continue
+            else:
+                print("Please enter valid input")
+                continue
     elif saloon_visited == True and saloon_fight == False:
         print("You walk up to the bartender, asking for a drink.")
         t.sleep(1)
         print("Bartender: ‘5 coins’")
         t.sleep(1)
+        while True:
+            choice_two = input(f"1.) Pay: You have {phoenix_brooks["Money"]} coins\n2.) Punch him\n3.) Haggle\n4.) Leave\n")
+            if choice_two == "1":
+                phoenix_brooks["Money"] -= 5
+                print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
+                print("You walk out, feeling satisfied.")
+                phoenix_brooks["Health"] = 25
+                saloon_visited = True
+                return
+            elif choice_two == "2":
+                saloon_fight = True
+                saloon_visited = True
+                return
+            elif choice_two == "3":
+                print("Phoenix: ‘I can do 3’\nBartender: ‘4’")
+                while True:
+                    choice_three = input("1.) Take the deal\n2.) Leave\n3.) Punch him\n")
+                    if choice_three == "1":
+                        print("Phoenix: ‘Aight, that works.’")
+                        phoenix_brooks["Health"] = 25
+                        phoenix_brooks["Money"] -= 4
+                        saloon_visited = True
+                        return
+                    elif choice_three == "2":
+                        print("Phoenix: ‘Nah, I'll pass.’")
+                        print("You leave.")
+                        saloon_visited = True
+                        return
+                    elif choice_three == "3":
+                        saloon_fight = True
+                        saloon_visited = True
+                        return
+                    elif choice_three == "4":
+                        saloon_visited = True
+                        print("You leave.")
+                        return
+                    else:
+                        print("Please enter valid input")
+                    continue
+            else:
+                print("Please enter valid input")
+                continue
     elif saloon_fight == True:
         print("You walk in, the place is destroyed from the tumble you caused.\nThe bartender is there, cleaning up.\nHe spots you walk in.")
         t.sleep(1)
@@ -283,30 +373,39 @@ def location_move(phoenix_brooks):
     while True:
         new_loc = input().strip()
         if new_loc == "1":
+            clear_screen()
             saloon(phoenix_brooks, saloon_visited, saloon_fight)
             break
         elif new_loc == "2":
+            clear_screen()
             inn(phoenix_brooks)
             break
         elif new_loc == "3":
+            clear_screen()
             casino(phoenix_brooks)
             break
         elif new_loc == "4":
+            clear_screen()
             mine(phoenix_brooks)
             break
         elif new_loc == "5":
+            clear_screen()
             station(phoenix_brooks)
             break
         elif new_loc == "6":
+            clear_screen()
             bank(phoenix_brooks)
             break
         elif new_loc == "7":
+            clear_screen()
             store(phoenix_brooks)
             break        
         elif new_loc == "8":
+            clear_screen()
             jail(phoenix_brooks)
             break
         elif new_loc == "9":
+            clear_screen()
             shooting_range(phoenix_brooks)
             break
         else:
@@ -314,4 +413,5 @@ def location_move(phoenix_brooks):
             continue
 
 introduction(phoenix_brooks)
-location_move(phoenix_brooks)
+while True:
+    location_move(phoenix_brooks)
