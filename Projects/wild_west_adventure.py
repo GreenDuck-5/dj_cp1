@@ -246,7 +246,7 @@ def inn(phoenix_brooks):
 def casino(phoenix_brooks):
     print("You walk into the casino. Bright lights, and a heck ton of machines. A few tables as well.")
     while True:
-        choice_ugh = input("Where do you want to go?\n1.) Coin flips\n2.) Blackjack\n3.) Poker\n4.) Slots\n")
+        choice_ugh = input("Where do you want to go?\n1.) Blackjack\n2.) Poker\n3.) Slots\n")
         return
 
 def mine(phoenix_brooks):
@@ -276,7 +276,7 @@ def bandit_fight(phoenix_brooks):
 def bar_fight(phoenix_brooks):
     print("You punch him in the face.")
 
-def location_move():
+def location_move(phoenix_brooks):
     print("Which would you like you like to go to?")
     print("1.) Saloon\n2.) Inn\n3.) Casino\n4.) Mine\n5.) Train Station\n6.) Bank\n7.) General Store\n8.) Jail\n9.) Shooting Range")
     while True:
