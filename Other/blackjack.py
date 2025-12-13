@@ -71,7 +71,7 @@ def check_blackjack(player_hand, dealer_hand):
 def play_again():
     choice = input("Do you want to play again? (Y/N): ").strip().lower()
     if choice == 'y': 
-        return
+        return True
 
 def game():
     while True:
