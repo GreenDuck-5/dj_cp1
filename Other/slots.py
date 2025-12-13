@@ -1,4 +1,5 @@
 import random
+import time as t
 
 def spin_grid():
     symbols = ['🍒', '🍉', '🍋', '🥑', '⭐']
@@ -62,10 +63,12 @@ def main():
 
         money -= bet
         print("\nSpinning...\n")
+        t.sleep(1)
         grid = spin_grid()
         print_grid(grid)
 
         payout = get_payout(grid, bet)
+        t.sleep(1)
         if payout > 0:
             print(f"You won ${payout}!")
             money += payout
