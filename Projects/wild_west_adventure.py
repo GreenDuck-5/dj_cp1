@@ -2,6 +2,7 @@
 import time as t
 import random as r
 
+
 phoenix_brooks = {
 	"Health": 25,
 	"Morale": 10,
@@ -174,7 +175,7 @@ def introduction(phoenix_brooks):
             continue
     return
 
-def saloon(phoenix_brooks):
+def saloon(phoenix_brooks, saloon_visited, saloon_fight):
     if saloon_visited == False:
         print("You walk up to the saloon, the massive sign at the front reads: ‘The High Noon Saloon’\nYou have seen this building many times, but never in it.\nYou never liked the yelling and crashing.")
         t.sleep(2)
@@ -282,7 +283,7 @@ def location_move(phoenix_brooks):
     while True:
         new_loc = input().strip()
         if new_loc == "1":
-            saloon(phoenix_brooks)
+            saloon(phoenix_brooks, saloon_visited, saloon_fight)
             break
         elif new_loc == "2":
             inn(phoenix_brooks)

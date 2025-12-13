@@ -1,0 +1,93 @@
+import random
+
+def spin_grid():
+    """Spin a 3x3 grid and return it as a list of lists."""
+    symbols = ['🍒', '🍉', '🍋', '🥑', '⭐']
+    return [[random.choice(symbols) for _ in range(3)] for _ in range(3)]
+
+def print_grid(grid):
+    print("*************")
+    for row in grid:
+        print("  ", " | ".join(row))
+    print("*************")
+
+def get_payout(grid, bet):
+    payout = 0
+
+    # Check rows
+    for row in grid:
+        if row[0] == row[1] == row[2]:
+            payout += symbol_multiplier(row[0]) * bet
+
+    # Check diagonals
+    if grid[0][0] == grid[1][1] == grid[2][2]:
+        payout += symbol_multiplier(grid[0][0]) * bet
+    if grid[0][2] == grid[1][1] == grid[2][0]:
+        payout += symbol_multiplier(grid[0][2]) * bet
+
+    return payout
+
+def symbol_multiplier(symbol):
+    if symbol == '🍒':
+        return 3
+    elif symbol == '🍉':
+        return 4
+    elif symbol == '🍋':
+        return 5
+    elif symbol == '🥑':
+        return 10
+    elif symbol == '⭐':
+        return 20
+    return 0
+
+def main():
+    balance = 100
+    print("********************************")
+    print("      Welcome to slots!  ")
+    print("Symbols: 🍒 🍉 🍋 🥑 ⭐")
+    print("********************************")
+
+    while balance > 0:
+        print(f"\nCurrent balance: ${balance}")
+        
+        bet = input("Place your bet amount: $")
+        
+        if not bet.isdigit():
+            print("Please enter a valid input.")
+            continue
+
+        bet = int(bet)
+
+        if bet > balance:
+            print("You don't got that much.")
+            continue
+        elif bet <= 0:
+            print("Bet must be greater than 0.")
+            continue
+
+        balance -= bet
+        print("\nSpinning...\n")
+        grid = spin_grid()
+        print_grid(grid)
+
+        payout = get_payout(grid, bet)
+        if payout > 0:
+            print(f"You won ${payout}!")
+            balance += payout
+        else:
+            print("You lost.")
+
+        if balance == 0:
+            print("\nNo more money!")
+            break
+
+        play_again = input("Do you want to spin again? (Y/N): ").upper()
+        if play_again != 'Y':
+            break
+
+    print("\n*********************************************")
+    print(f"Game over! Your final balance is ${balance}")
+    print("*********************************************")
+
+if __name__ == '__main__':
+    main()
