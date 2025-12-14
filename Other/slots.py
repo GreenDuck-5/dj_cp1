@@ -89,6 +89,8 @@ def main():
         play_again = input("Do you want to spin again? (Y/N): ").upper()
         if play_again != 'Y':
             break
+        else:
+            clear_screen()
 
     print(f"Game over!")
 
