@@ -8,7 +8,6 @@ def clear_screen():
     else:
         os.system('clear')
 
-
 def spin_grid():
     symbols = ['C', 'W', 'L', 'A', 'S']
     return [[random.choice(symbols) for _ in range(3)] for _ in range(3)]
