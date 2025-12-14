@@ -13,7 +13,7 @@ def create_deck():
     random.shuffle(deck)
     return deck
 
-def deal_hand(deck, num_cards=2):
+def deal_hand(deck, num_cards = 2):
     hand = []
     for _ in range(num_cards):
         card = deck.pop()
@@ -40,7 +40,7 @@ def calculate_total(hand):
         aces -= 1
     return total
 
-def print_hands(player_hand, dealer_hand, reveal_dealer=False):
+def print_hands(player_hand, dealer_hand, reveal_dealer = False):
     if reveal_dealer:
         print(f"Dealer's hand: {dealer_hand} (Total: {calculate_total(dealer_hand)})")
     else:
@@ -66,7 +66,7 @@ def check_blackjack(player_hand, dealer_hand):
         print_hands(player_hand, dealer_hand, reveal_dealer=True)
         print("Dealer got a Blackjack. You lose.")
         return True
-    return False
+
 
 def play_again():
     choice = input("Do you want to play again? (Y/N): ").strip().lower()
