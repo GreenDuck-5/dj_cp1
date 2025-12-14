@@ -94,10 +94,11 @@ def main():
 
     print(f"Game over!")
 
-while True:
-    main()
-    choice = input("Do you want to play again? Y/N:\n").upper()
-    if choice != "Y":
-        break
-    else:
-        clear_screen()
+def real_main():
+    while True:
+        main()
+        choice = input("Do you want to play again? Y/N:\n").upper()
+        if choice != "Y":
+            break
+        else:
+            clear_screen()

@@ -67,7 +67,6 @@ def check_blackjack(player_hand, dealer_hand):
         print("Dealer got a Blackjack. You lose.")
         return True
 
-
 def play_again():
     choice = input("Do you want to play again? (Y/N): ").strip().lower()
     if choice == 'y': 
@@ -77,43 +76,49 @@ def game():
     while True:
         clear_screen()
         print("Blackjacking time.\n")
-        current_deck = create_deck()
-        player_hand = deal_hand(current_deck)
-        dealer_hand = deal_hand(current_deck)
-        print_hands(player_hand, dealer_hand)
-        if check_blackjack(player_hand, dealer_hand):
-            if not play_again():
-                break
-            continue
-        while True:
-            choice = input("Do you want to Hit or Stand:\n").strip().lower()
-            if choice == 'hit':
-                hit(current_deck, player_hand)
-                print_hands(player_hand, dealer_hand)
-                if calculate_total(player_hand) > 21:
-                    print("You busted! Dealer wins.")
-                    break
-            elif choice == 'stand':
-                break
+        money = 100
+        while money >= 0:
+            blackjack_bet = input(f"How much do you want to bet, you have ${money}: $")
+            if blackjack_bet <= 0 or blackjack_bet > money:
+                print("Please enter valid number.")
             else:
-                print("Please enter valid input.")
-        while calculate_total(dealer_hand) < 17:
-            hit(current_deck, dealer_hand)
-        clear_screen()
-        print_hands(player_hand, dealer_hand, reveal_dealer=True)
-        player_total = calculate_total(player_hand)
-        dealer_total = calculate_total(dealer_hand)
-        if player_total > 21:
-            print("You busted!")
-        elif dealer_total > 21:
-            print("Dealer busted! You win!")
-        elif player_total > dealer_total:
-            print("You win!")
-        elif player_total < dealer_total:
-            print("Dealer wins.")
-        else:
-            print("It's a tie!")
-        if not play_again():
-            break
+                current_deck = create_deck()
+                player_hand = deal_hand(current_deck)
+                dealer_hand = deal_hand(current_deck)
+                print_hands(player_hand, dealer_hand)
+                if check_blackjack(player_hand, dealer_hand):
+                    if not play_again():
+                        break
+                    continue
+                while True:
+                    choice = input("Do you want to Hit or Stand:\n").strip().lower()
+                    if choice == 'hit':
+                        hit(current_deck, player_hand)
+                        print_hands(player_hand, dealer_hand)
+                        if calculate_total(player_hand) > 21:
+                            print("You busted! Dealer wins.")
+                            break
+                    elif choice == 'stand':
+                        break
+                    else:
+                        print("Please enter valid input.")
+                while calculate_total(dealer_hand) < 17:
+                    hit(current_deck, dealer_hand)
+                clear_screen()
+                print_hands(player_hand, dealer_hand, reveal_dealer=True)
+                player_total = calculate_total(player_hand)
+                dealer_total = calculate_total(dealer_hand)
+                if player_total > 21:
+                    print("You busted!")
+                elif dealer_total > 21:
+                    print("Dealer busted! You win!")
+                elif player_total > dealer_total:
+                    print("You win!")
+                elif player_total < dealer_total:
+                    print("Dealer wins.")
+                else:
+                    print("It's a tie!")
+                if not play_again():
+                    return
 
 game()

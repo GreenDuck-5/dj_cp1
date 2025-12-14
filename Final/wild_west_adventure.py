@@ -2,29 +2,39 @@
 import time as t
 import random as r
 import os
+from slots import real_main
 
 phoenix_brooks = {
-	"Health": 25,
-	"Morale": 10,
-	"Honor": 15,
-	"Money": 100,
+	"Health": int(25),
+	"Morale": int(10),
+	"Honor": int(15),
+	"Money": int(100),
 }
+
 availible_weapons = ("Fist", "Pistol", "Boot")
+
 items = ()
 
 saloon_visited = False
 inn_visited = False
 casino_visited = False
-times_casino_visited = 0
 mine_visited = False
 station_visited = False
 bank_visited = False
 store_visited = False
 jail_visited = False
 shooting_range_visited = False
+
 saloon_fight = False
 jail_break = False
+
 dead = False
+
+times_casino_visited = 0
+
+bartender = "Alive"
+old_man = "Alive"
+
 
 fist = {
     "Damage": 5,
@@ -141,6 +151,236 @@ boot = {
     }
 }
 
+def slots():
+    def clear_screen():
+        if os.name == 'nt':
+            os.system('CLS')
+        else:
+            os.system('clear')
+
+    def spin_grid():
+        symbols = ['C', 'W', 'L', 'A', 'S']
+        return [[r.choice(symbols) for _ in range(3)] for _ in range(3)]
+
+    def print_grid(grid):
+        print("*************")
+        for row in grid:
+            print("  ", " | ".join(row))
+        print("*************")
+
+    def get_payout(grid, bet):
+        payout = 0
+
+        for row in grid:
+            if row[0] == row[1] == row[2]:
+                payout += symbol_multiplier(row[0]) * bet
+
+        if grid[0][0] == grid[1][1] == grid[2][2]:
+            payout += symbol_multiplier(grid[0][0]) * bet
+        if grid[0][2] == grid[1][1] == grid[2][0]:
+            payout += symbol_multiplier(grid[0][2]) * bet
+
+        return payout
+
+    def symbol_multiplier(symbol):
+        if symbol == 'C':
+            return 3
+        elif symbol == 'W':
+            return 4
+        elif symbol == 'L':
+            return 5
+        elif symbol == 'A':
+            return 10
+        elif symbol == 'S':
+            return 20
+        return 0
+
+    def slots_main():
+        print("   Welcome to slots!")
+        print("Symbols: C W L A S")
+
+        while phoenix_brooks['Money'] > 0:
+            print(f"\nCurrent money: ${phoenix_brooks['Money']}")
+            
+            bet = input("Place your bet amount: $")
+            
+            if not bet.isdigit():
+                print("Please enter a valid input.")
+                continue
+
+            bet = int(bet)
+
+            if bet > phoenix_brooks['Money']:
+                print("You don't got that much.")
+                continue
+            elif bet <= 0:
+                print("Bet must be greater than 0.")
+                continue
+
+            phoenix_brooks['Money'] -= bet
+            print("\nSpinning...\n")
+            t.sleep(1)
+            grid = spin_grid()
+            print_grid(grid)
+
+            payout = get_payout(grid, bet)
+            t.sleep(1)
+            if payout > 0:
+                print(f"You won ${payout}!")
+                phoenix_brooks['Money'] += payout
+            else:
+                print("You lost.")
+
+            if phoenix_brooks['Money'] == 0:
+                print("\nNo more money!")
+                break
+
+            play_again = input("Do you want to spin again? (Y/N): ").upper()
+            if play_again != 'Y':
+                break
+            else:
+                clear_screen()
+
+        print(f"Game over!")
+    slots_main()
+    return
+
+def blackjack():
+    def clear_screen():
+        if os.name == 'nt':
+            os.system('CLS')
+        else:
+            os.system('clear')
+
+    def create_deck():
+        deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] * 4
+        r.shuffle(deck)
+        return deck
+
+    def deal_hand(deck, num_cards = 2):
+        hand = []
+        for _ in range(num_cards):
+            card = deck.pop()
+            if card == 11: card = "J"
+            elif card == 12: card = "Q"
+            elif card == 13: card = "K"
+            elif card == 14: card = "A"
+            hand.append(card)
+        return hand
+
+    def calculate_total(hand):
+        total = 0
+        aces = 0
+        for card in hand:
+            if card in ["J", "Q", "K"]:
+                total += 10
+            elif card == "A":
+                total += 11
+                aces += 1
+            else:
+                total += card
+        while total > 21 and aces:
+            total -= 10
+            aces -= 1
+        return total
+
+    def print_hands(player_hand, dealer_hand, reveal_dealer = False):
+        if reveal_dealer:
+            print(f"Dealer's hand: {dealer_hand} (Total: {calculate_total(dealer_hand)})")
+        else:
+            print(f"Dealer's showing: {dealer_hand[0]}")
+        print(f"Your hand: {player_hand} (Total: {calculate_total(player_hand)})")
+
+    def hit(deck, hand):
+        card = deck.pop()
+        if card == 11: card = "J"
+        elif card == 12: card = "Q"
+        elif card == 13: card = "K"
+        elif card == 14: card = "A"
+        hand.append(card)
+
+    def check_blackjack(player_hand, dealer_hand):
+        player_total = calculate_total(player_hand)
+        dealer_total = calculate_total(dealer_hand)
+        if player_total == 21:
+            print_hands(player_hand, dealer_hand, reveal_dealer=True)
+            print("You got a Blackjack!")
+            return True
+        elif dealer_total == 21:
+            print_hands(player_hand, dealer_hand, reveal_dealer=True)
+            print("Dealer got a Blackjack. You lose.")
+            return True
+
+    def play_again():
+        choice = input("Do you want to play again? (Y/N): ").strip().lower()
+        if choice == 'y': 
+            return True
+
+    def game():
+        while True:
+            clear_screen()
+            print("Blackjacking time.\n")
+            while phoenix_brooks["Money"] >= 0:
+                blackjack_bet = input(f'How much do you want to bet, you have ${phoenix_brooks["Money"]}: $')
+                if not blackjack_bet.isdigit():
+                    print("Please enter a valid input.")
+                    continue
+                blackjack_bet = int(blackjack_bet)
+                if blackjack_bet > phoenix_brooks["Money"]:
+                    print("You don't got that much.")
+                    continue
+                elif blackjack_bet <= 0:
+                    print("Bet must be greater than 0.")
+                    continue
+                else:
+
+                    phoenix_brooks["Money"] -= blackjack_bet
+                    current_deck = create_deck()
+                    player_hand = deal_hand(current_deck)
+                    dealer_hand = deal_hand(current_deck)
+                    print_hands(player_hand, dealer_hand)
+                    if check_blackjack(player_hand, dealer_hand):
+                        if not play_again():
+                            break
+                        continue
+                    while True:
+                        choice = input("Do you want to Hit or Stand:\n").strip().lower()
+                        if choice == 'hit':
+                            hit(current_deck, player_hand)
+                            print_hands(player_hand, dealer_hand)
+                            if calculate_total(player_hand) > 21:
+                                print("You busted! Dealer wins.")
+                                break
+                        elif choice == 'stand':
+                            break
+                        else:
+                            print("Please enter valid input.")
+                    while calculate_total(dealer_hand) < 17:
+                        hit(current_deck, dealer_hand)
+                    clear_screen()
+                    print_hands(player_hand, dealer_hand, reveal_dealer=True)
+                    player_total = calculate_total(player_hand)
+                    dealer_total = calculate_total(dealer_hand)
+                    if player_total > 21:
+                        print("You busted!")
+                    elif dealer_total > 21:
+                        print("Dealer busted! You win!")
+                        phoenix_brooks["Money"] += blackjack_bet*2
+                    elif player_total > dealer_total:
+                        print("You win!")
+                        phoenix_brooks["Money"] += blackjack_bet*2
+                    elif player_total < dealer_total:
+                        print("Dealer wins.")
+                    else:
+                        print("It's a tie.")
+                        phoenix_brooks["Money"] += blackjack_bet
+                    if not play_again():
+                        return
+
+    game()
+    print(f"You ended with {phoenix_brooks['Money']}")
+    return
+
 def clear_screen():
     if os.name == 'nt':
         os.system('CLS')
@@ -151,7 +391,7 @@ def introduction(phoenix_brooks):
     print("Old Man: ‘Howdy, Phoenix! Welcome to Ember Bend! It’s a neat little town, at least it was. But that was before the new sheriff came into town, 15 years he’s made this place a living hell. But I’m sure you knew that. That’s why you’re here, Mr. Brooks, no?’")
     t.sleep(1.5)
     while True:
-        choice_one = input("1.) Yes. For honor.\n2.) No. For money.\n3.) Yes. For you.\n")
+        choice_one = input("1.) Yes. For honor.\n2.) No. For money.\n3.) Yes. For you.\n4.) Shoot him.\n")
         if choice_one == "1":
             print("Phoenix: ‘Of course, only a man with no honor would abandon his home town when it is in need.’")
             t.sleep(1)
@@ -176,6 +416,16 @@ def introduction(phoenix_brooks):
             print("The old man will remember that.")
             t.sleep(1)
             break
+        elif choice_one == "4":
+            print("You shoot the old man in the head.")
+            t.sleep(1)
+            print("He falls to the ground, dead.")
+            t.sleep(1)
+            old_man = "Dead"
+            phoenix_brooks["Honor"] -= 15
+            return
+        elif choice_one == "skip":
+            casino(phoenix_brooks)
         else:
             print("Please enter valid input.")
             continue
@@ -212,6 +462,8 @@ def saloon(phoenix_brooks, saloon_visited, saloon_fight):
                         print("Phoenix: ‘Aight, that works.’")
                         phoenix_brooks["Health"] = 25
                         phoenix_brooks["Money"] -= 4
+                        print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
+                        print("You walk out, feeling satisfied.")
                         saloon_visited = True
                         return
                     elif choice_three == "2":
@@ -234,52 +486,7 @@ def saloon(phoenix_brooks, saloon_visited, saloon_fight):
                 print("Please enter valid input")
                 continue
     elif saloon_visited == True and saloon_fight == False:
-        print("You walk up to the bartender, asking for a drink.")
-        t.sleep(1)
-        print("Bartender: ‘5 coins’")
-        t.sleep(1)
-        while True:
-            choice_two = input(f"1.) Pay: You have {phoenix_brooks["Money"]} coins\n2.) Punch him\n3.) Haggle\n4.) Leave\n")
-            if choice_two == "1":
-                phoenix_brooks["Money"] -= 5
-                print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
-                print("You walk out, feeling satisfied.")
-                phoenix_brooks["Health"] = 25
-                saloon_visited = True
-                return
-            elif choice_two == "2":
-                saloon_fight = True
-                saloon_visited = True
-                return
-            elif choice_two == "3":
-                print("Phoenix: ‘I can do 3’\nBartender: ‘4’")
-                while True:
-                    choice_three = input("1.) Take the deal\n2.) Leave\n3.) Punch him\n")
-                    if choice_three == "1":
-                        print("Phoenix: ‘Aight, that works.’")
-                        phoenix_brooks["Health"] = 25
-                        phoenix_brooks["Money"] -= 4
-                        saloon_visited = True
-                        return
-                    elif choice_three == "2":
-                        print("Phoenix: ‘Nah, I'll pass.’")
-                        print("You leave.")
-                        saloon_visited = True
-                        return
-                    elif choice_three == "3":
-                        saloon_fight = True
-                        saloon_visited = True
-                        return
-                    elif choice_three == "4":
-                        saloon_visited = True
-                        print("You leave.")
-                        return
-                    else:
-                        print("Please enter valid input")
-                    continue
-            else:
-                print("Please enter valid input")
-                continue
+        print("Bartender: ‘Welcome back, Phoenix. The usual?’")
     elif saloon_fight == True:
         print("You walk in, the place is destroyed from the tumble you caused.\nThe bartender is there, cleaning up.\nHe spots you walk in.")
         t.sleep(1)
@@ -287,57 +494,22 @@ def saloon(phoenix_brooks, saloon_visited, saloon_fight):
         t.sleep(1)
         print("He runs up to you, punching you in the face.")
         t.sleep(1)
-        choice_blerg = input("1.) Apologize and help him\n2.) Punch him back\n3.) Leave")
-        print("Phoenix: ")
-    while True:
-        choice_two = input(f"1.) Pay: You have {phoenix_brooks["Money"]} coins\n2.) Punch him\n3.) Haggle\n4.) Leave\n")
-        if choice_two == "1":
-            phoenix_brooks["Money"] -= 5
-            print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
-            print("You walk out, feeling satisfied.")
-            phoenix_brooks["Health"] = 25
-            saloon_visited = True
-            return
-        elif choice_two == "2":
-            saloon_fight = True
-            saloon_visited = True
-            return
-        elif choice_two == "3":
-            print("Phoenix: ‘I can do 3’\nBartender: ‘4’")
-            while True:
-                choice_three = input("1.) Take the deal\n2.) Leave\n3.) Punch him\n")
-                if choice_three == "1":
-                    print("Phoenix: ‘Aight, that works.’")
-                    phoenix_brooks["Health"] = 25
-                    phoenix_brooks["Money"] -= 4
-                    saloon_visited = True
-                    return
-                elif choice_three == "2":
-                    print("Phoenix: ‘Nah, I'll pass.’")
-                    print("You leave.")
-                    saloon_visited = True
-                    return
-                elif choice_three == "3":
-                    saloon_fight = True
-                    saloon_visited = True
-                    return
-                elif choice_three == "4":
-                    saloon_visited = True
-                    print("You leave.")
-                    return
-                else:
-                    print("Please enter valid input")
-                continue
-        else:
-            print("Please enter valid input")
-            continue
+        choice_blerg = input("1.) Apologize and help him\n2.) Punch him back\n3.) Shoot him\n4.) Leave")
+
 def inn(phoenix_brooks):
     print("inn")
 
 def casino(phoenix_brooks):
     print("You walk into the casino. Bright lights, and a heck ton of machines. A few tables as well.")
     while True:
-        choice_ugh = input("Where do you want to go?\n1.) Blackjack\n2.) Poker\n3.) Slots\n")
+        choice_ugh = input("Where do you want to go?\n1.) Blackjack\n2.) Poker\n3.) Slots\n4.) Quit\n")
+        if choice_ugh == "1":
+            blackjack()
+        elif choice_ugh == "3":
+            slots()
+        elif choice_ugh == "4":
+            return
+        clear_screen()
         return
 
 def mine(phoenix_brooks):
@@ -366,6 +538,7 @@ def bandit_fight(phoenix_brooks):
 
 def bar_fight(phoenix_brooks):
     print("You punch him in the face.")
+    print("")
 
 def location_move(phoenix_brooks):
     print("Which would you like you like to go to?")
@@ -412,6 +585,9 @@ def location_move(phoenix_brooks):
             print("Please enter valid input.")
             continue
 
-introduction(phoenix_brooks)
-while True:
-    location_move(phoenix_brooks)
+def wild_west_game():
+    introduction(phoenix_brooks)
+    while True:
+        location_move(phoenix_brooks)
+
+wild_west_game()
