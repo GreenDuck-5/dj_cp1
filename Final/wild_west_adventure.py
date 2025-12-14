@@ -333,7 +333,6 @@ def blackjack():
                     print("Bet must be greater than 0.")
                     continue
                 else:
-
                     phoenix_brooks["Money"] -= blackjack_bet
                     current_deck = create_deck()
                     player_hand = deal_hand(current_deck)
@@ -542,10 +541,22 @@ def bar_fight(phoenix_brooks):
 
 def location_move(phoenix_brooks):
     print("Which would you like you like to go to?")
-    print("1.) Saloon\n2.) Inn\n3.) Casino\n4.) Mine\n5.) Train Station\n6.) Bank\n7.) General Store\n8.) Jail\n9.) Shooting Range")
+    print("0.) Check Inventory\n1.) Saloon\n2.) Inn\n3.) Casino\n4.) Mine\n5.) Train Station\n6.) Bank\n7.) General Store\n8.) Jail\n9.) Shooting Range")
     while True:
         new_loc = input().strip()
-        if new_loc == "1":
+        if new_loc == "0":
+            clear_screen()
+            num = 1
+            for item in items:
+                print(item)
+            for weapon in availible_weapons:
+                print(f"Weapon #{num}: {weapon}")
+                num += 1
+            print(f"Money: ${phoenix_brooks['Money']}")
+            print(f"Health: {phoenix_brooks['Health']}")
+            t.sleep(3)
+            break
+        elif new_loc == "1":
             clear_screen()
             saloon(phoenix_brooks, saloon_visited, saloon_fight)
             break
