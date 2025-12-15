@@ -102,3 +102,5 @@ def real_main():
             break
         else:
             clear_screen()
+
+real_main()

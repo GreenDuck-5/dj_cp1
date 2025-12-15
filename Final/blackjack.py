@@ -79,6 +79,9 @@ def game():
         money = 100
         while money >= 0:
             blackjack_bet = input(f"How much do you want to bet, you have ${money}: $")
+            if not blackjack_bet.isdigit():
+                print("Please enter valid number.")
+            blackjack_bet = int(blackjack_bet)
             if blackjack_bet <= 0 or blackjack_bet > money:
                 print("Please enter valid number.")
             else:
