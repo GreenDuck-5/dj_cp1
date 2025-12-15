@@ -2,7 +2,8 @@
 import time as t
 import random as r
 import os
-from slots import real_main
+from collections import Counter
+from itertools import combinations
 
 phoenix_brooks = {
 	"Health": int(25),
@@ -196,7 +197,7 @@ def slots():
         return 0
 
     def slots_main():
-        print("   Welcome to slots!")
+        print("Welcome to slots!")
         print("Symbols: C W L A S")
 
         while phoenix_brooks['Money'] > 0:
@@ -246,12 +247,6 @@ def slots():
     return
 
 def blackjack():
-    def clear_screen():
-        if os.name == 'nt':
-            os.system('CLS')
-        else:
-            os.system('clear')
-
     def create_deck():
         deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] * 4
         r.shuffle(deck)
@@ -321,8 +316,11 @@ def blackjack():
             clear_screen()
             print("Blackjacking time.\n")
             while phoenix_brooks["Money"] >= 0:
-                blackjack_bet = input(f'How much do you want to bet, you have ${phoenix_brooks["Money"]}: $')
-                if not blackjack_bet.isdigit():
+                blackjack_bet = input(f'How much do you want to bet, you have ${phoenix_brooks["Money"]}. Or type \'done\' to exit: $').lower().strip()
+                if blackjack_bet == "done":
+                    print("Goodbye")
+                    return
+                elif not blackjack_bet.isdigit():
                     print("Please enter a valid input.")
                     continue
                 blackjack_bet = int(blackjack_bet)
@@ -380,6 +378,242 @@ def blackjack():
     print(f"You ended with {phoenix_brooks['Money']}")
     return
 
+def poker(phoenix_brooks):
+    def clear_screen():
+        if os.name == 'nt':
+            os.system('CLS')
+        else:
+            os.system('clear')
+
+    def new_deck():
+        return [(r, s) for r in range(2, 15) for s in "SHDC"]
+
+    def card_str(card):
+        faces = {11:"J", 12:"Q", 13:"K", 14:"A"}
+        rnk,suit = card
+        return f"{faces.get(rnk,rnk)}{suit}"
+
+    def evaluate(hand):
+        ranks = sorted([c[0] for c in hand], reverse=True)
+        suits = [c[1] for c in hand]
+        count = Counter(ranks)
+        counts = sorted(count.values(), reverse=True)
+        flush = len(set(suits))==1
+        straight = ranks==list(range(ranks[0], ranks[0]-5,-1))
+        if ranks==[14,5,4,3,2]:
+            straight=True
+            ranks=[5,4,3,2,1]
+        if flush and ranks==[14,13,12,11,10]:
+            return (10,ranks)
+        if flush and straight:
+            return (9,ranks)
+        if counts==[4,1]:
+            return (8,[count.most_common(1)[0][0]])
+        if counts==[3,2]:
+            return (7,[count.most_common(1)[0][0]])
+        if flush:
+            return (6,ranks)
+        if straight:
+            return (5,ranks)
+        if counts==[3,1,1]:
+            return (4,[count.most_common(1)[0][0]])
+        if counts==[2,2,1]:
+            pairs = sorted([r for r,c in count.items() if c==2], reverse=True)
+            return (3,pairs)
+        if counts==[2,1,1,1]:
+            return (2,[count.most_common(1)[0][0]])
+        return (1,ranks)
+
+    def best_hand(seven):
+        best=None
+        for five in combinations(seven,5):
+            score=evaluate(list(five))
+            if best is None or score>best:
+                best=score
+        return best
+
+    def ai_strength(hand,community):
+        combined = hand + community
+        if len(combined)<5:
+            return max(c[0] for c in combined)
+        score = best_hand(combined)
+        return score[0]
+
+    def ai_action(player_idx, hand, community, chips, current_bet, to_call, pot, position):
+        strength = ai_strength(hand, community)
+        stack = chips[player_idx]
+        if strength <=2:
+            fold_prob,call_prob,raise_prob = 0.5,0.4,0.1
+        elif strength <=5:
+            fold_prob,call_prob,raise_prob = 0.2,0.6,0.2
+        elif strength <=7:
+            fold_prob,call_prob,raise_prob = 0.1,0.5,0.4
+        else:
+            fold_prob,call_prob,raise_prob = 0.0,0.3,0.7
+        total=fold_prob+call_prob+raise_prob
+        fold_prob/=total
+        call_prob/=total
+        raise_prob/=total
+        rand=r.random()
+        if rand<fold_prob:
+            return 'fold',0
+        elif rand<fold_prob+call_prob:
+            bet=min(to_call,stack)
+            return 'call',bet
+        else:
+            low=min(10,stack)
+            high=min(40,stack)
+            if low>high:
+                raise_amount=stack
+            else:
+                raise_amount=r.randint(low,high)
+            return 'raise',raise_amount
+
+    def betting_round(players, active, chips, pot, community, current_bet=0):
+        bets=[0]*len(players)
+        ai_moves=[]
+        while True:
+            changed=False
+            if active.count(True)==1:
+                return pot
+            for i in range(len(players)):
+                if not active[i]:
+                    continue
+                to_call=current_bet-bets[i]
+                if i==0:
+                    clear_screen()
+                    print(f"\nYour turn")
+                    print(f"Your cards: {' '.join(card_str(c) for c in players[i])}")
+                    print(f"Community cards: {' '.join(card_str(c) for c in community)}" if community else "Community cards: None yet")
+                    print(f"Pot: {pot} | Your chips: {phoenix_brooks['Money']}")
+                    print(f"Current bet: {current_bet}\nTo call: {to_call}\n")
+                    if ai_moves:
+                        print("AI moves so far this round:")
+                        for move in ai_moves:
+                            print(move)
+                    while True:
+                        action=input("check, call, raise, fold: ").lower()
+                        if action=="fold":
+                            active[i]=False
+                            remaining=next((j for j,a in enumerate(active) if a),None)
+                            if remaining is not None:
+                                if remaining==0:
+                                    phoenix_brooks["Money"]+=pot
+                                print(f"Player {remaining+1} wins the pot")
+                            return pot
+                        elif action=="raise":
+                            if phoenix_brooks['Money']>=to_call+10:
+                                phoenix_brooks['Money']-=to_call+10
+                                bets[i]+=to_call+10
+                                pot+=to_call+10
+                                current_bet+=10
+                                changed=True
+                                print(f"You raise to {current_bet}")
+                                break
+                            else:
+                                print("Not enough money to raise. Must call or fold.")
+                                continue
+                        elif action=="call" and to_call>0:
+                            if phoenix_brooks['Money']>=to_call:
+                                phoenix_brooks['Money']-=to_call
+                                bets[i]+=to_call
+                                pot+=to_call
+                                print("You call")
+                                break
+                            else:
+                                print("Not enough money to call. Must fold.")
+                                continue
+                        elif action=="check" and to_call==0:
+                            print("You check")
+                            break
+                        else:
+                            print("Invalid action. Try again.")
+                            continue
+                else:
+                    position=i
+                    action,amount=ai_action(i,players[i],community,chips,current_bet,to_call,pot,position)
+                    if action=='fold':
+                        active[i]=False
+                        move=f"Player {i+1} folds"
+                    elif action=='call':
+                        chips[i]-=amount
+                        bets[i]+=amount
+                        pot+=amount
+                        move=f"Player {i+1} calls"
+                    elif action=='raise':
+                        total_raise=to_call+amount
+                        if total_raise>chips[i]:
+                            total_raise=chips[i]
+                        chips[i]-=total_raise
+                        bets[i]+=total_raise
+                        pot+=total_raise
+                        current_bet=max(current_bet,bets[i])
+                        changed=True
+                        move=f"Player {i+1} raises to {current_bet}"
+                    print(move)
+                    t.sleep(1)
+                    ai_moves.append(move)
+            if all(not active[i] or bets[i]==current_bet for i in range(len(players))):
+                break
+        return pot
+
+    chips=[100]*4
+    while phoenix_brooks["Money"]>0 and sum(c>0 for c in chips[1:])>0:
+        clear_screen()
+        print(f"--- New Hand ---")
+        deck=new_deck()
+        r.shuffle(deck)
+        players=[[deck.pop(),deck.pop()] for _ in range(4)]
+        active=[phoenix_brooks["Money"]>0]+[c>0 for c in chips[1:]]
+        pot=0
+        community=[]
+        starting_bet=5
+        for i in range(4):
+            if active[i]:
+                if i==0:
+                    phoenix_brooks["Money"]-=starting_bet
+                else:
+                    chips[i]-=starting_bet
+                pot+=starting_bet
+        print(f"Your hole cards: {' '.join(card_str(c) for c in players[0])}")
+        print(f"Automatic starting bet of {starting_bet} from each player. Pot is {pot}.")
+        pot=betting_round(players,active,chips,pot,community)
+        if sum(active)==1:
+            winner=next((i for i,a in enumerate(active) if a),None)
+            if winner is not None:
+                if winner==0:
+                    phoenix_brooks["Money"]+=pot
+                else:
+                    chips[winner]+=pot
+                print(f"Player {winner+1} wins the pot")
+            if input("Start a new hand? (y/n): ").lower()!='y':
+                break
+            continue
+        community=[deck.pop() for _ in range(3)]
+        print(f"Flop: {' '.join(card_str(c) for c in community)}")
+        pot=betting_round(players,active,chips,pot,community)
+        community.append(deck.pop())
+        print(f"Turn: {card_str(community[-1])}")
+        pot=betting_round(players,active,chips,pot,community)
+        community.append(deck.pop())
+        print(f"River: {card_str(community[-1])}")
+        pot=betting_round(players,active,chips,pot,community)
+        results={}
+        for i in range(4):
+            if active[i]:
+                results[i]=best_hand(players[i]+community)
+        if results:
+            winner=max(results,key=lambda k: results[k])
+            if winner==0:
+                phoenix_brooks["Money"]+=pot
+            else:
+                chips[winner]+=pot
+            print(f"Player {winner+1} wins the pot")
+        print(f"Current money: {phoenix_brooks['Money']}")
+        if input("Start a new hand? (y/n): ").lower()!='y':
+            break
+    print("Poker game over!")
+
 def clear_screen():
     if os.name == 'nt':
         os.system('CLS')
@@ -424,7 +658,7 @@ def introduction(phoenix_brooks):
             phoenix_brooks["Honor"] -= 15
             return
         elif choice_one == "skip":
-            casino(phoenix_brooks)
+            return
         else:
             print("Please enter valid input.")
             continue
@@ -504,6 +738,8 @@ def casino(phoenix_brooks):
         choice_ugh = input("Where do you want to go?\n1.) Blackjack\n2.) Poker\n3.) Slots\n4.) Quit\n")
         if choice_ugh == "1":
             blackjack()
+        if choice_ugh == "2":
+            poker(phoenix_brooks)
         elif choice_ugh == "3":
             slots()
         elif choice_ugh == "4":
@@ -554,8 +790,14 @@ def location_move(phoenix_brooks):
                 num += 1
             print(f"Money: ${phoenix_brooks['Money']}")
             print(f"Health: {phoenix_brooks['Health']}")
-            t.sleep(3)
-            break
+            exit_inventory = input("\nEnter anything to exit inventory:\n")
+            if exit_inventory == "anything":
+                print("Well you took that literally.")
+                t.sleep(2)
+                clear_screen()
+            else:
+                clear_screen()
+                break
         elif new_loc == "1":
             clear_screen()
             saloon(phoenix_brooks, saloon_visited, saloon_fight)
@@ -598,6 +840,7 @@ def location_move(phoenix_brooks):
 
 def wild_west_game():
     introduction(phoenix_brooks)
+    clear_screen()
     while True:
         location_move(phoenix_brooks)
 
