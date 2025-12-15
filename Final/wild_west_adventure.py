@@ -795,6 +795,7 @@ def location_move(phoenix_brooks):
                 print("Well you took that literally.")
                 t.sleep(2)
                 clear_screen()
+                break
             else:
                 clear_screen()
                 break
