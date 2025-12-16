@@ -738,6 +738,7 @@ def casino(phoenix_brooks, world_state):
         clear_screen()
         return
 
+
 #Room 6
 def jail(phoenix_brooks, world_state):
     print("You walk up to the jail.")
@@ -815,7 +816,9 @@ def store(phoenix_brooks, world_state):
         else:
             print("Please enter valin input.")
             continue
-    
+
+
+
 
 def sheriff_fight(phoenix_brooks, world_state):
     sheriff = {
