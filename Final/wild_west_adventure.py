@@ -10,6 +10,7 @@ phoenix_brooks = {
 	"Morale": int(10),
 	"Honor": int(15),
 	"Money": int(100),
+    "Max Health": int(25)
 }
 
 availible_weapons = ["Fist", "Pistol", "Boot"]
@@ -26,11 +27,9 @@ world_state = {
     "shooting_range_visited": False,
 
     "saloon_fight": False,
-    "jail_break": False,
+    "bandit_fight": False,
 
     "dead": False,
-
-    "times_casino_visited": 0,
 
     "bartender": "Alive",
     "old_man": "Alive",
@@ -40,23 +39,10 @@ world_state = {
     "active_side_quests": [],
 
     "train_ending": False,
+    "sheriff_ending": False
 }
 
 
-def fist_attack(phoenix_brooks, world_state):
-    pass
-
-def pistol_attack(phoenix_brooks, world_state):
-    pass
-
-def rifle_attack(phoenix_brooks, world_state):
-    pass
-
-def shotgun_attack(phoenix_brooks, world_state):
-    pass
-
-def boot_attack(phoenix_brooks, world_state):
-    pass
 
 #Room 1
 def slots(phoenix_brooks, world_state):
@@ -592,10 +578,11 @@ def saloon(phoenix_brooks, world_state):
                 phoenix_brooks["Money"] -= 5
                 print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
                 print("You walk out, feeling satisfied.")
-                phoenix_brooks["Health"] = 25
+                phoenix_brooks["Health"] = phoenix_brooks["Max Health"]
                 world_state["saloon_visited"] = True
                 return
             elif choice_two == "2":
+                bar_fight(phoenix_brooks, world_state)
                 world_state["saloon_fight"] = True
                 world_state["saloon_visited"] = True
                 return
@@ -605,7 +592,7 @@ def saloon(phoenix_brooks, world_state):
                     choice_three = input("1.) Take the deal\n2.) Leave\n3.) Punch him\n")
                     if choice_three == "1":
                         print("Phoenix: ‘Aight, that works.’")
-                        phoenix_brooks["Health"] = 25
+                        phoenix_brooks["Health"] = phoenix_brooks["Max Health"]
                         phoenix_brooks["Money"] -= 4
                         print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
                         print("You walk out, feeling satisfied.")
@@ -617,6 +604,7 @@ def saloon(phoenix_brooks, world_state):
                         world_state["saloon_visited"] = True
                         return
                     elif choice_three == "3":
+                        bar_fight(phoenix_brooks, world_state)
                         world_state["saloon_fight"] = True
                         world_state["saloon_visited"] = True
                         return
@@ -635,15 +623,18 @@ def saloon(phoenix_brooks, world_state):
         y_n = input("Yes or no?\n").lower().strip()
         if y_n == "yes":
             print("Phoenix: ‘Yeah’")
-    elif world_state["saloon_fight"] == True and world_state["bartender"] == "Alive":
-        print("You walk in, the place is destroyed from the tumble you caused.\nThe bartender is there, cleaning up.\nHe spots you walk in.")
-        t.sleep(1)
-        print("Bartender: ‘YOU! YOU RUINED MY ESTABLISHMENT! HECK YOU!’")
-        t.sleep(1)
-        print("He runs up to you, punching you in the face.")
-        t.sleep(1)
-        choice_blerg = input("1.) Apologize and help him\n2.) Punch him back\n3.) Shoot him\n4.) Leave\n")
-
+            t.sleep(1)
+            print("Bartender: ‘Aight, that'll be 3’")
+            t.sleep(1)
+            print("Phoenix: ‘Thanks’")
+            t.sleep(1)
+            phoenix_brooks["Money"] -= 3
+            phoenix_brooks["Health"] = phoenix_brooks["Max Health"]
+            return
+    elif world_state["saloon_fight"] == True and world_state["bartender"] == "Dead":
+        print("You walk in, the place is destroyed from the tumble you caused. Nothing left to do here.")
+        return
+        
 #Room 5
 def inn(phoenix_brooks, world_state):
     print("You walk up to the inn. The small sign hanging next to the door reads: \n‘The Dust Bowl Inn’\n ‘5 per person’")
@@ -671,8 +662,8 @@ def inn(phoenix_brooks, world_state):
                 t.sleep(1)
                 return
             elif world_state["child"] == "Found":
-                print("Crying Lady: ‘THANK YOU SO MUCH! HE'S BACK! HE'S BACK! Let me reward you!’\nShe hands you 20 gold.")
-                phoenix_brooks["Money"] += 20
+                print("Crying Lady: ‘THANK YOU SO MUCH! HE'S BACK! HE'S BACK! Let me reward you!’\nShe hands you 500.")
+                phoenix_brooks["Money"] += 500
                 print("Phoenix: ‘I'm happy to help.’")
                 phoenix_brooks["Morale"] += 5
                 phoenix_brooks["Honor"] += 5
@@ -729,29 +720,47 @@ def inn(phoenix_brooks, world_state):
             continue
 
 
-#Room 6
 def casino(phoenix_brooks, world_state):
     print("You walk into the casino. Bright lights, and a heck ton of machines. A few tables as well.")
     while True:
         choice_ugh = input("Where do you want to go?\n1.) Blackjack\n2.) Poker\n3.) Slots\n4.) Quit\n")
         if choice_ugh == "1":
-            blackjack()
+            blackjack(phoenix_brooks, world_state)
             phoenix_brooks["Morale"] -= 1
         if choice_ugh == "2":
-            poker(phoenix_brooks)
+            poker(phoenix_brooks, world_state)
             phoenix_brooks["Morale"] -= 1
         elif choice_ugh == "3":
-            slots()
+            slots(phoenix_brooks, world_state)
             phoenix_brooks["Morale"] -= 1
         elif choice_ugh == "4":
             return
         clear_screen()
         return
 
+#Room 6
+def jail(phoenix_brooks, world_state):
+    print("You walk up to the jail.")
+    end_game = input("Do you want to fight the sheriff? Y/N").lower().strip()
+    if end_game == "y":
+        sheriff_fight(phoenix_brooks, world_state)
+        return
+    else:
+        return
 
 #Room 7
 def mine(phoenix_brooks, world_state):
-    print("mine")
+    print("You walk up to the mine. Its very dusty.")
+    if world_state["bandit_fight"] == False:
+        print("A group on masked men walk up to you.")
+        print("Goon 1: ‘This is OUR turf. Anyone on our turf, will see our dark sides.’")
+        print("He turns around and whispers to the other goons.\nGoon 1: ‘Was that tuff?’\nGoon 2: ‘No. not in the slightest.’\n Goon 3: ‘Just... just shut up.’\nGoon 1: ‘ok, then lets just fight him.’")
+        world_state["bandit_fight"] = True
+        bandit_fight(phoenix_brooks, world_state)
+        return
+    else:
+        print("Nothing else is here.")
+        return
 
 
 #Room 8
@@ -783,38 +792,339 @@ def station(phoenix_brooks, world_state):
 
 #Room 9
 def store(phoenix_brooks, world_state):
-    print("store")
-
+    print("You walk into the store.")
+    while True:
+        print("Storekeeper: ‘What would you like to buy?’\n1.) Health Up: $50\n2.) Full Heal: $3\n")
+        shopping_item = input("")
+        if shopping_item == "1" and phoenix_brooks["Money"] >= 50:
+            phoenix_brooks["Max Health"] += 10
+            phoenix_brooks["Money"] -= 10
+            print("+10 to max health")
+            return
+        elif shopping_item == "1" and not phoenix_brooks["Money"] >= 50:
+            print("You do not have enough money for that.")
+            return
+        elif shopping_item == "2" and phoenix_brooks["Money"] >= 3:
+            phoenix_brooks["Health"] = phoenix_brooks["Max Health"]
+            phoenix_brooks["Money"] -= 3
+            print("You full heal.")
+            return
+        elif shopping_item == "2" and not phoenix_brooks["Money"] >= 3:
+            print("You do not have enough money for that.")
+            return
+        else:
+            print("Please enter valin input.")
+            continue
+    
 
 def sheriff_fight(phoenix_brooks, world_state):
-    pass
+    sheriff = {
+        "Health": 35,
+        "Damage": (4, 8),
+        "Accuracy": 75,
+        "Phase": 1
+    }
 
+    weapon_stats = {
+        "Fist": {"Damage": (2, 4), "Accuracy": 70},
+        "Boot": {"Damage": (3, 6), "Accuracy": 65},
+        "Pistol": {"Damage": (7, 12), "Accuracy": 90}
+    }
+
+    body_parts = {
+        "Head": {"Accuracy_Mod": -40, "Damage_Mod": 2.5},
+        "Chest": {"Accuracy_Mod": 0, "Damage_Mod": 1.0},
+        "Stomach": {"Accuracy_Mod": -10, "Damage_Mod": 1.3},
+        "Arms": {"Accuracy_Mod": 10, "Damage_Mod": 0.8},
+        "Legs": {"Accuracy_Mod": 15, "Damage_Mod": 0.7},
+    }
+
+    print("\nThe sheriff steps into the street, hand resting on his revolver.")
+    t.sleep(1)
+    print("Sheriff: ‘You picked the wrong town, Mr. Brooks.’")
+    t.sleep(1)
+
+    while phoenix_brooks["Health"] > 0 and sheriff["Health"] > 0:
+        print("\n=== SHERIFF SHOWDOWN ===")
+        print(f"Your Health: {phoenix_brooks['Health']}")
+        print(f"Sheriff Health: {sheriff['Health']}")
+
+        if sheriff["Health"] <= 15 and sheriff["Phase"] == 1:
+            sheriff["Phase"] = 2
+            sheriff["Accuracy"] += 10
+            sheriff["Damage"] = (6, 10)
+            print("\nThe sheriff wipes blood from his mouth and narrows his eyes.")
+            print("Sheriff: 'Pluh.'")
+            t.sleep(1)
+
+        print("\nChoose your weapon:")
+        for w in availible_weapons:
+            print(f"- {w}")
+
+        while True:
+            weapon = input("> ").strip()
+            if weapon in weapon_stats:
+                break
+            print("Invalid weapon.")
+
+        print("\nChoose a body part to target:")
+        for part in body_parts:
+            print(f"- {part}")
+
+        while True:
+            target = input("> ").strip()
+            if target in body_parts:
+                break
+            print("Invalid body part.")
+
+        weapon_data = weapon_stats[weapon]
+        part_data = body_parts[target]
+
+        final_accuracy = max(5, weapon_data["Accuracy"] + part_data["Accuracy_Mod"])
+
+        print(f"\nYou aim for the sheriff's {target.lower()}...")
+        t.sleep(1)
+
+        if r.randint(1, 100) <= final_accuracy:
+            base_damage = r.randint(*weapon_data["Damage"])
+            damage = int(base_damage * part_data["Damage_Mod"])
+            sheriff["Health"] -= damage
+            print(f"You hit! ({damage} damage)")
+        else:
+            print("You miss!")
+
+        t.sleep(1)
+
+        if sheriff["Health"] <= 0:
+            print("\nThe sheriff falls to his knees, defeated.")
+            phoenix_brooks["Honor"] += 10
+            world_state["sheriff_ending"] = True
+            print("The town is free.")
+            return
+
+        print("\nThe sheriff fires back!")
+        t.sleep(1)
+
+        sheriff_target = r.choice(["Chest", "Stomach"])
+        if r.randint(1, 100) <= sheriff["Accuracy"]:
+            damage = r.randint(*sheriff["Damage"])
+            phoenix_brooks["Health"] -= damage
+            print(f"The sheriff shoots you in the {sheriff_target.lower()} for {damage} damage!")
+        else:
+            print("The sheriff's shot misses!")
+
+        t.sleep(1)
+
+        if phoenix_brooks["Health"] <= 0:
+            print("\nYou collapse in the dust.")
+            world_state["dead"] = True
+            return
+        
 def bandit_fight(phoenix_brooks, world_state):
-    pass
+    bandits = [
+        {"Name": "Bandit", "Health": 15, "Damage": (3, 6), "Accuracy": 60},
+        {"Name": "Bandit", "Health": 15, "Damage": (3, 6), "Accuracy": 60},
+    ]
+
+    weapon_stats = {
+        "Fist": {"Damage": (2, 4), "Accuracy": 75},
+        "Boot": {"Damage": (3, 6), "Accuracy": 65},
+        "Pistol": {"Damage": (6, 10), "Accuracy": 85}
+    }
+
+    body_parts = {
+        "Head": {"Accuracy_Mod": -35, "Damage_Mod": 2.2},
+        "Chest": {"Accuracy_Mod": 0, "Damage_Mod": 1.0},
+        "Stomach": {"Accuracy_Mod": -10, "Damage_Mod": 1.3},
+        "Arms": {"Accuracy_Mod": 10, "Damage_Mod": 0.7},
+        "Legs": {"Accuracy_Mod": 15, "Damage_Mod": 0.6},
+    }
+
+    print("\nBandits step out from behind the rocks, guns drawn.")
+    t.sleep(1)
+
+    while phoenix_brooks["Health"] > 0 and any(b["Health"] > 0 for b in bandits):
+        print("\n--- BANDIT AMBUSH ---")
+        print(f"Your Health: {phoenix_brooks['Health']}")
+
+        for i, bandit in enumerate(bandits):
+            if bandit["Health"] > 0:
+                print(f"{i+1}. {bandit['Name']} - Health: {bandit['Health']}")
+
+        while True:
+            target_index = input("\nChoose a bandit to attack: ")
+            if target_index.isdigit():
+                target_index = int(target_index) - 1
+                if 0 <= target_index < len(bandits) and bandits[target_index]["Health"] > 0:
+                    break
+            print("Invalid choice.")
+
+        print("\nChoose your weapon:")
+        for w in availible_weapons:
+            print(f"- {w}")
+
+        while True:
+            weapon = input("> ").strip()
+            if weapon in weapon_stats:
+                break
+            print("Invalid weapon.")
+
+        print("\nChoose a body part to target:")
+        for part in body_parts:
+            print(f"- {part}")
+
+        while True:
+            body_part = input("> ").strip()
+            if body_part in body_parts:
+                break
+            print("Invalid body part.")
+
+        weapon_data = weapon_stats[weapon]
+        part_data = body_parts[body_part]
+
+        final_accuracy = max(5, weapon_data["Accuracy"] + part_data["Accuracy_Mod"])
+
+        print(f"\nYou aim at the bandit's {body_part.lower()}...")
+        t.sleep(1)
+
+        if r.randint(1, 100) <= final_accuracy:
+            base_damage = r.randint(*weapon_data["Damage"])
+            damage = int(base_damage * part_data["Damage_Mod"])
+            bandits[target_index]["Health"] -= damage
+            print(f"You hit for {damage} damage!")
+        else:
+            print("You miss!")
+
+        t.sleep(1)
+
+        if bandits[target_index]["Health"] <= 0:
+            print("The bandit drops!")
+            phoenix_brooks["Honor"] += 2
+
+        for bandit in bandits:
+            if bandit["Health"] > 0:
+                print("\nA bandit fires at you!")
+                t.sleep(0.5)
+                if r.randint(1, 100) <= bandit["Accuracy"]:
+                    damage = r.randint(*bandit["Damage"])
+                    phoenix_brooks["Health"] -= damage
+                    print(f"You take {damage} damage!")
+                else:
+                    print("The shot misses!")
+
+                if phoenix_brooks["Health"] <= 0:
+                    print("\nYou collapse from your wounds.")
+                    world_state["dead"] = True
+                    return
+
+    print("\nThe bandits are defeated.")
+    loot = r.randint(10, 30)
+    phoenix_brooks["Money"] += loot
+    phoenix_brooks["Honor"] += 3
+    print(f"You loot {loot} coins from their bodies.")
 
 def bar_fight(phoenix_brooks, world_state):
-    print("You punch him in the face.")
+    bartender = {
+        "Health": 20,
+        "Damage": (2, 5),
+        "Accuracy": 65
+    }
+
+    weapon_stats = {
+        "Fist": {"Damage": (2, 4), "Accuracy": 80},
+        "Boot": {"Damage": (3, 6), "Accuracy": 70},
+        "Pistol": {"Damage": (6, 20), "Accuracy": 85}
+    }
+
+    body_parts = {
+        "Head": {"Accuracy_mod": -30, "Damage_mod": 2.0},
+        "Chest": {"Accuracy_mod": 0, "Damage_mod": 1.0},
+        "Stomach": {"Accuracy_mod": -5, "Damage_mod": 1.2},
+        "Arms": {"Accuracy_mod": 10, "Damage_mod": 0.7},
+        "Legs": {"Accuracy_mod": 15, "Damage_mod": 0.6},
+    }
+
+    print("\nThe bartender wipes blood from his nose and raises his fists.")
     t.sleep(1)
-    print("He stares at you, nose bleeding.")
-    t.sleep(1)
-    print("What do you want to attack with:")
-    for weapon in availible_weapons:
-        print(f"{weapon}")
-    while True:
-        choice_attack = input("")
-        if choice_attack in availible_weapons:
-            break
+    print("Bartender: ‘Fisticuffs.’")
+
+    while phoenix_brooks["Health"] > 0 and bartender["Health"] > 0:
+        print("\n--- BAR FIGHT ---")
+        print(f"Your Health: {phoenix_brooks['Health']}")
+
+        print("\nChoose your weapon:")
+        for w in availible_weapons:
+            print(f"- {w}")
+
+        while True:
+            weapon = input("> ").strip().title()
+            if weapon in weapon_stats:
+                break
+            print("Invalid weapon.")
+
+        print("\nChoose a body part to attack:")
+        for part in body_parts:
+            print(f"- {part}")
+
+        while True:
+            target = input("> ").strip().title()
+            if target in body_parts:
+                break
+            print("Invalid body part.")
+
+        weapon_data = weapon_stats[weapon]
+        part_data = body_parts[target]
+
+        base_accuracy = weapon_data["Accuracy"]
+        final_accuracy = max(5, base_accuracy + part_data["Accuracy_mod"])
+
+        print(f"\nYou aim for his {target.lower()}...")
+        t.sleep(1)
+
+        if r.randint(1, 100) <= final_accuracy:
+            base_damage = r.randint(*weapon_data["Damage"])
+            damage = int(base_damage * part_data["Damage_mod"])
+            bartender["Health"] -= damage
+            print(f"You hit! ({damage} damage)")
         else:
-            print("Please enter valid input.")
-            continue
+            print("You miss!")
+
+        t.sleep(1)
+
+        if bartender["Health"] <= 0:
+            print("\nThe bartender crashes to the floor. You won the fight.")
+            world_state["bartender"] = "Dead"
+            world_state["saloon_fight"] = False
+            phoenix_brooks["Honor"] -= 2
+            return
+
+        print("\nThe bartender swings back!")
+        t.sleep(1)
+
+        if r.randint(1, 100) <= bartender["Accuracy"]:
+            damage = r.randint(*bartender["Damage"])
+            phoenix_brooks["Health"] -= damage
+            print(f"He hits you for {damage} damage!")
+        else:
+            print("He misses!")
+
+        t.sleep(1)
+
+        if phoenix_brooks["Health"] <= 0:
+            print("\nYou fall unconscious on the saloon floor.")
+            world_state["dead"] = True
+            return
         
+
 
 
 def location_move(phoenix_brooks, world_state):
     if world_state["train_ending"] == True:
         return
+    if world_state["dead"] == True:
+        return
     print("Which would you like you like to go to?")
-    print("0.) Check Inventory\n1.) Saloon\n2.) Inn\n3.) Casino\n4.) Mine\n5.) Train Station\n6.) General Store\n")
+    print("0.) Check Inventory\n1.) Saloon\n2.) Inn\n3.) Casino\n4.) Mine\n5.) Train Station\n6.) General Store\n7.) Jail\n")
     while True:
         new_loc = input().strip()
         if new_loc == "0":
@@ -862,6 +1172,9 @@ def location_move(phoenix_brooks, world_state):
             clear_screen()
             store(phoenix_brooks, world_state)
             break
+        elif new_loc == "7":
+            clear_screen()
+            jail(phoenix_brooks, world_state)
         else:
             print("Please enter valid input.")
             continue
@@ -871,6 +1184,10 @@ def wild_west_game(phoenix_brooks, world_state):
     clear_screen()
     while True:
         if world_state["train_ending"] == True:
+            print("You left.")
+            break
+        if world_state["dead"] == True:
+            print("You died.")
             break
         location_move(phoenix_brooks, world_state)
         
