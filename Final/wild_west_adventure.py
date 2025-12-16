@@ -798,7 +798,7 @@ def store(phoenix_brooks, world_state):
         shopping_item = input("")
         if shopping_item == "1" and phoenix_brooks["Money"] >= 50:
             phoenix_brooks["Max Health"] += 10
-            phoenix_brooks["Money"] -= 10
+            phoenix_brooks["Money"] -= 50
             print("+10 to max health")
             return
         elif shopping_item == "1" and not phoenix_brooks["Money"] >= 50:
