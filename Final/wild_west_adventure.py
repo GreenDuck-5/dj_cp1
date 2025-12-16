@@ -257,7 +257,7 @@ def blackjack(phoenix_brooks, world_state):
                     elif dealer_total > 21:
                         print("Dealer busted! You win!")
                         phoenix_brooks["Money"] += blackjack_bet*2
-                    elif check_blackjack(player_total):
+                    elif check_blackjack(player_total, dealer_hand):
                         phoenix_brooks["Honor"] += blackjack_bet*2
                     elif player_total > dealer_total:
                         print("You win!")
@@ -1194,4 +1194,6 @@ def wild_west_game(phoenix_brooks, world_state):
             break
         location_move(phoenix_brooks, world_state)
         
-wild_west_game(phoenix_brooks, world_state)
+while True:
+    wild_west_game(phoenix_brooks, world_state)
+    clear_screen()
