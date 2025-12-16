@@ -12,147 +12,54 @@ phoenix_brooks = {
 	"Money": int(100),
 }
 
-availible_weapons = ("Fist", "Pistol", "Boot")
+availible_weapons = ["Fist", "Pistol", "Boot"]
 
-items = ()
+world_state = {
+    "saloon_visited": False,
+    "inn_visited": False,
+    "casino_visited": False,
+    "mine_visited": False,
+    "station_visited": False,
+    "bank_visited": False,
+    "store_visited": False,
+    "jail_visited": False,
+    "shooting_range_visited": False,
 
-saloon_visited = False
-inn_visited = False
-casino_visited = False
-mine_visited = False
-station_visited = False
-bank_visited = False
-store_visited = False
-jail_visited = False
-shooting_range_visited = False
+    "saloon_fight": False,
+    "jail_break": False,
 
-saloon_fight = False
-jail_break = False
+    "dead": False,
 
-dead = False
+    "times_casino_visited": 0,
 
-times_casino_visited = 0
+    "bartender": "Alive",
+    "old_man": "Alive",
+    "crying_woman": "Not helped",
+    "child": "Missing",
 
-bartender = "Alive"
-old_man = "Alive"
+    "active_side_quests": [],
 
-
-fist = {
-    "Damage": 5,
-    "Range": 1,
-    "Accuracy": {
-        "Upper Body": {
-            "Head": 60,
-            "Right Shoulder": 80,
-            "Left Shoulder": 80,
-            "Throat": 50,
-            "Chest": 95,
-            "Stomach": 90
-        },
-        "Lower Body": {
-            "Right Thigh": 40,
-            "Left Thigh": 40,
-            "Right Shin": 20,
-            "Left Shin": 20,
-            "Left Foot": 5,
-            "Right Foot": 5
-        }
-    }
+    "train_ending": False,
 }
 
-pistol = {
-    "Damage": 20,
-    "Range": 45,
-    "Accuracy": {
-        "Upper Body": {
-            "Head": 70,
-            "Right Shoulder": 80,
-            "Left Shoulder": 80,
-            "Throat": 45,
-            "Chest": 95,
-            "Stomach": 80
-        },
-        "Lower Body": {
-            "Right Thigh": 20,
-            "Left Thigh": 20,
-            "Right Shin": 10,
-            "Left Shin": 10,
-            "Left Foot": 30,
-            "Right Foot": 30
-        }
-    }
-}
 
-rifle = {
-    "Damage": 20,
-    "Range": 1375,
-    "Accuracy": {
-        "Upper Body": {
-            "Head": 70,
-            "Right Shoulder": 80,
-            "Left Shoulder": 80,
-            "Throat": 45,
-            "Chest": 95,
-            "Stomach": 80
-        },
-        "Lower Body": {
-            "Right Thigh": 20,
-            "Left Thigh": 20,
-            "Right Shin": 10,
-            "Left Shin": 10,
-            "Left Foot": 30,
-            "Right Foot": 30
-        }
-    }
-}
+def fist_attack(phoenix_brooks, world_state):
+    pass
 
-shotgun = {
-    "Damage": 30,
-    "Range": 90,
-    "Accuracy": {
-        "Upper Body": {
-            "Head": 95,
-            "Right Shoulder": 90,
-            "Left Shoulder": 90,
-            "Throat": 90,
-            "Chest": 95,
-            "Stomach": 90
-        },
-        "Lower Body": {
-            "Right Thigh": 50,
-            "Left Thigh": 50,
-            "Right Shin": 10,
-            "Left Shin": 10,
-            "Left Foot": 30,
-            "Right Foot": 30
-        }
-    }
-}
+def pistol_attack(phoenix_brooks, world_state):
+    pass
 
-boot = {
-    "Damage": 10,
-    "Range": 1.5,
-    "Accuracy": {
-        "Upper Body": {
-            "Head": 10,
-            "Right Shoulder": 15,
-            "Left Shoulder": 15,
-            "Throat": 10,
-            "Chest": 15,
-            "Stomach": 50
-        },
-        "Lower Body": {
-            "Right Thigh": 70,
-            "Left Thigh": 70,
-            "Right Shin": 90,
-            "Left Shin": 90,
-            "Left Foot": 95,
-            "Right Foot": 95
-        }
-    }
-}
+def rifle_attack(phoenix_brooks, world_state):
+    pass
 
-def slots():
+def shotgun_attack(phoenix_brooks, world_state):
+    pass
+
+def boot_attack(phoenix_brooks, world_state):
+    pass
+
+#Room 1
+def slots(phoenix_brooks, world_state):
     def clear_screen():
         if os.name == 'nt':
             os.system('CLS')
@@ -246,7 +153,8 @@ def slots():
     slots_main()
     return
 
-def blackjack():
+#Room 2
+def blackjack(phoenix_brooks, world_state):
     def create_deck():
         deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] * 4
         r.shuffle(deck)
@@ -363,6 +271,8 @@ def blackjack():
                     elif dealer_total > 21:
                         print("Dealer busted! You win!")
                         phoenix_brooks["Money"] += blackjack_bet*2
+                    elif check_blackjack(player_total):
+                        phoenix_brooks["Honor"] += blackjack_bet*2
                     elif player_total > dealer_total:
                         print("You win!")
                         phoenix_brooks["Money"] += blackjack_bet*2
@@ -378,7 +288,8 @@ def blackjack():
     print(f"You ended with {phoenix_brooks['Money']}")
     return
 
-def poker(phoenix_brooks):
+#Room 3
+def poker(phoenix_brooks, world_state):
     def clear_screen():
         if os.name == 'nt':
             os.system('CLS')
@@ -620,7 +531,7 @@ def clear_screen():
     else:
         os.system('clear')
 
-def introduction(phoenix_brooks):
+def introduction(phoenix_brooks, world_state):
     print("Old Man: ‘Howdy, Phoenix! Welcome to Ember Bend! It’s a neat little town, at least it was. But that was before the new sheriff came into town, 15 years he’s made this place a living hell. But I’m sure you knew that. That’s why you’re here, Mr. Brooks, no?’")
     t.sleep(1.5)
     while True:
@@ -664,8 +575,9 @@ def introduction(phoenix_brooks):
             continue
     return
 
-def saloon(phoenix_brooks, saloon_visited, saloon_fight):
-    if saloon_visited == False:
+#Room 4
+def saloon(phoenix_brooks, world_state):
+    if world_state["saloon_visited"] == False:
         print("You walk up to the saloon, the massive sign at the front reads: ‘The High Noon Saloon’\nYou have seen this building many times, but never in it.\nYou never liked the yelling and crashing.")
         t.sleep(1)
         print("Opening the saloon doors, you can now see what it’s like.\nIt’s loud, but it’s just people having a good time.")
@@ -681,11 +593,11 @@ def saloon(phoenix_brooks, saloon_visited, saloon_fight):
                 print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
                 print("You walk out, feeling satisfied.")
                 phoenix_brooks["Health"] = 25
-                saloon_visited = True
+                world_state["saloon_visited"] = True
                 return
             elif choice_two == "2":
-                saloon_fight = True
-                saloon_visited = True
+                world_state["saloon_fight"] = True
+                world_state["saloon_visited"] = True
                 return
             elif choice_two == "3":
                 print("Phoenix: ‘I can do 3’\nBartender: ‘4’")
@@ -697,19 +609,19 @@ def saloon(phoenix_brooks, saloon_visited, saloon_fight):
                         phoenix_brooks["Money"] -= 4
                         print("You pay for the drink. It's some good orange juice.\nYou are now fully healed.")
                         print("You walk out, feeling satisfied.")
-                        saloon_visited = True
+                        world_state["saloon_visited"] = True
                         return
                     elif choice_three == "2":
                         print("Phoenix: ‘Nah, I'll pass.’")
                         print("You leave.")
-                        saloon_visited = True
+                        world_state["saloon_visited"] = True
                         return
                     elif choice_three == "3":
-                        saloon_fight = True
-                        saloon_visited = True
+                        world_state["saloon_fight"] = True
+                        world_state["saloon_visited"] = True
                         return
                     elif choice_three == "4":
-                        saloon_visited = True
+                        world_state["saloon_visited"] = True
                         print("You leave.")
                         return
                     else:
@@ -718,73 +630,200 @@ def saloon(phoenix_brooks, saloon_visited, saloon_fight):
             else:
                 print("Please enter valid input")
                 continue
-    elif saloon_visited == True and saloon_fight == False:
+    elif world_state["saloon_visited"] == True and world_state["saloon_fight"] == False:
         print("Bartender: ‘Welcome back, Phoenix. The usual?’")
-    elif saloon_fight == True:
+        y_n = input("Yes or no?\n").lower().strip()
+        if y_n == "yes":
+            print("Phoenix: ‘Yeah’")
+    elif world_state["saloon_fight"] == True and world_state["bartender"] == "Alive":
         print("You walk in, the place is destroyed from the tumble you caused.\nThe bartender is there, cleaning up.\nHe spots you walk in.")
         t.sleep(1)
         print("Bartender: ‘YOU! YOU RUINED MY ESTABLISHMENT! HECK YOU!’")
         t.sleep(1)
         print("He runs up to you, punching you in the face.")
         t.sleep(1)
-        choice_blerg = input("1.) Apologize and help him\n2.) Punch him back\n3.) Shoot him\n4.) Leave")
+        choice_blerg = input("1.) Apologize and help him\n2.) Punch him back\n3.) Shoot him\n4.) Leave\n")
 
-def inn(phoenix_brooks):
-    print("inn")
+#Room 5
+def inn(phoenix_brooks, world_state):
+    print("You walk up to the inn. The small sign hanging next to the door reads: \n‘The Dust Bowl Inn’\n ‘5 per person’")
+    while True:
+        print("Walking in, you can see:\n1.) The innkeeper\n2.) A person to the right, crying\n3.) A person to your left, just sitting there")
+        who_to_talk = input("")
+        if who_to_talk == "1":
+            print("You walk up to the innkeeper.\nInnkeeper: ‘Would you like a room?’")
+            y_or_n = input("Yes or No?\n").lower().strip()
+            if y_or_n == "yes":
+                phoenix_brooks["Money"] -= 5
+                print("The innkeeper leads you to your room. You go to sleep, waking the next morning.\nYou feel fully rested.")
+                phoenix_brooks["Health"] = 25
+                return
+            else:
+                print("You walk out.")
+                return
+        elif who_to_talk == "2":
+            if world_state["crying_woman"] == "Helped" and world_state["child"] == "Missing":
+                print("Crying Woman: ‘Have you found him?’")
+                t.sleep(1)
+                print("Phoenix: ‘Not quite yet.’")
+                t.sleep(1)
+                print("You walk back out.")
+                t.sleep(1)
+                return
+            elif world_state["child"] == "Found":
+                print("Crying Lady: ‘THANK YOU SO MUCH! HE'S BACK! HE'S BACK! Let me reward you!’\nShe hands you 20 gold.")
+                phoenix_brooks["Money"] += 20
+                print("Phoenix: ‘I'm happy to help.’")
+                phoenix_brooks["Morale"] += 5
+                phoenix_brooks["Honor"] += 5
+                return
+            elif world_state["crying_woman"] == "Not helped" and world_state["child"] == "Missing":
+                print("You walk up to the woman to your left.\nPhoenix: ‘Do you need help?’")
+                t.sleep(1)
+                print("Crying Lady: ‘I can't find my son, he's dissapeared.’")
+                t.sleep(1)
+                print("She sniffles.")
+                t.sleep(1)
+                print("Crying Lady: ‘Can you help me?’")
+                t.sleep(1)
+                help = input("Help? Yes or No.\n").lower().strip()
+                if help == "yes":
+                    print("Phoenix: ‘Of course. Where did you see him last?’")
+                    t.sleep(1)
+                    print("Crying Woman: ‘At the station.’")
+                    t.sleep(1)
+                    print("Phoenix: ‘I'll return when I find him.’")
+                    t.sleep(1)
+                    crying_woman = "Helped"
+                    world_state["active_side_quests"].append("Find the child in the Train Station")
+                    return
+                else:
+                    print("Phoenix: ‘No.’")
+                    print("You walk out.")
+                    world_state["crying_woman"] = "Left"
+                    return
+            elif world_state["crying_woman"] == "Left":
+                print('Crying Woman: ‘Please help me.’')
+                choice_help = input("Help her? Yes or no.\n").lower().strip()
+                if choice_help == "yes":
+                    print("Phoenix: ‘Of course. Where did you see him last?’")
+                    t.sleep(1)
+                    print("Crying Woman: ‘At the station.’")
+                    t.sleep(1)
+                    print("Phoenix: ‘I'll return when I find him.’")
+                    t.sleep(1)
+                    world_state["crying_woman"] = "Helped"
+                    world_state["active_side_quests"].append("Find the child in the Train Station")
+                    return
+                else:
+                    print("No.")
+                    print("you walk out.")
+                    return
+        elif who_to_talk == "3":
+            print("Sitting Man: ‘Leave me alone.’")
+            t.sleep(1)
+            print("You walk away, respecting his wishes.")
+            return
+        else:
+            print("Please enter valid input.")
+            continue
 
-def casino(phoenix_brooks):
+
+#Room 6
+def casino(phoenix_brooks, world_state):
     print("You walk into the casino. Bright lights, and a heck ton of machines. A few tables as well.")
     while True:
         choice_ugh = input("Where do you want to go?\n1.) Blackjack\n2.) Poker\n3.) Slots\n4.) Quit\n")
         if choice_ugh == "1":
             blackjack()
+            phoenix_brooks["Morale"] -= 1
         if choice_ugh == "2":
             poker(phoenix_brooks)
+            phoenix_brooks["Morale"] -= 1
         elif choice_ugh == "3":
             slots()
+            phoenix_brooks["Morale"] -= 1
         elif choice_ugh == "4":
             return
         clear_screen()
         return
 
-def mine(phoenix_brooks):
+
+#Room 7
+def mine(phoenix_brooks, world_state):
     print("mine")
 
-def station(phoenix_brooks):
-    print("station")
 
-def bank(phoenix_brooks):
-    print("bank")
+#Room 8
+def station(phoenix_brooks, world_state):
+    print('You walk up to the station.')
+    print("The ‘Ember Express Train Station’ sign hangs above the ticket station.")
+    if "Find the child in the Train Station" in world_state["active_side_quests"]:
+        train_choice = input("1.) Buy a ticket\n2.) Talk to the crying child\n")
+        print("You walk up to the child.")
+        t.sleep(1)
+        print("Phoenix: ‘Are you missing your mother?’")
+        t.sleep(1)
+        print("Child: ‘Yes. Do you know where she is?’")
+        t.sleep(1)
+        print("Phoenix: ‘Yes, come with me.’")
+        t.sleep(1)
+        world_state["child"] = "Found"
+        world_state["active_side_quests"].remove("Find the child in the Train Station")
+        world_state["active_side_quests"].append("Return the child to his mother.")
+        return
+    else:
+        train_choice = input("1.) Buy a ticket\n")
+        if train_choice == "1":
+            confirm = input("This will end the game. Are you sure? Yes or No:\n").strip().lower()
+            if confirm == "yes":
+                print("You purchase a ticket out of town, abandoning the people in need.")
+                return
 
-def store(phoenix_brooks):
+
+#Room 9
+def store(phoenix_brooks, world_state):
     print("store")
 
-def jail(phoenix_brooks):
-    print("jail")
 
-def shooting_range(phoenix_brooks):
-    print("shooting range")
-
-def sheriff_fight(phoenix_brooks):
+def sheriff_fight(phoenix_brooks, world_state):
     pass
 
-def bandit_fight(phoenix_brooks):
+def bandit_fight(phoenix_brooks, world_state):
     pass
 
-def bar_fight(phoenix_brooks):
+def bar_fight(phoenix_brooks, world_state):
     print("You punch him in the face.")
-    print("")
+    t.sleep(1)
+    print("He stares at you, nose bleeding.")
+    t.sleep(1)
+    print("What do you want to attack with:")
+    for weapon in availible_weapons:
+        print(f"{weapon}")
+    while True:
+        choice_attack = input("")
+        if choice_attack in availible_weapons:
+            break
+        else:
+            print("Please enter valid input.")
+            continue
+        
 
-def location_move(phoenix_brooks):
+
+def location_move(phoenix_brooks, world_state):
+    if world_state["train_ending"] == True:
+        return
     print("Which would you like you like to go to?")
-    print("0.) Check Inventory\n1.) Saloon\n2.) Inn\n3.) Casino\n4.) Mine\n5.) Train Station\n6.) Bank\n7.) General Store\n8.) Jail\n9.) Shooting Range")
+    print("0.) Check Inventory\n1.) Saloon\n2.) Inn\n3.) Casino\n4.) Mine\n5.) Train Station\n6.) General Store\n")
     while True:
         new_loc = input().strip()
         if new_loc == "0":
             clear_screen()
             num = 1
-            for item in items:
-                print(item)
+            print("Active side quests:")
+            for quest in world_state["active_side_quests"]:
+                print(quest)
+            print("Weapons:")
             for weapon in availible_weapons:
                 print(f"Weapon #{num}: {weapon}")
                 num += 1
@@ -801,48 +840,38 @@ def location_move(phoenix_brooks):
                 break
         elif new_loc == "1":
             clear_screen()
-            saloon(phoenix_brooks, saloon_visited, saloon_fight)
+            saloon(phoenix_brooks, world_state)
             break
         elif new_loc == "2":
             clear_screen()
-            inn(phoenix_brooks)
+            inn(phoenix_brooks, world_state)
             break
         elif new_loc == "3":
             clear_screen()
-            casino(phoenix_brooks)
+            casino(phoenix_brooks, world_state)
             break
         elif new_loc == "4":
             clear_screen()
-            mine(phoenix_brooks)
+            mine(phoenix_brooks, world_state)
             break
         elif new_loc == "5":
             clear_screen()
-            station(phoenix_brooks)
+            station(phoenix_brooks, world_state)
             break
         elif new_loc == "6":
             clear_screen()
-            bank(phoenix_brooks)
-            break
-        elif new_loc == "7":
-            clear_screen()
-            store(phoenix_brooks)
-            break        
-        elif new_loc == "8":
-            clear_screen()
-            jail(phoenix_brooks)
-            break
-        elif new_loc == "9":
-            clear_screen()
-            shooting_range(phoenix_brooks)
+            store(phoenix_brooks, world_state)
             break
         else:
             print("Please enter valid input.")
             continue
 
-def wild_west_game():
-    introduction(phoenix_brooks)
+def wild_west_game(phoenix_brooks, world_state):
+    introduction(phoenix_brooks, world_state)
     clear_screen()
     while True:
-        location_move(phoenix_brooks)
-
-wild_west_game()
+        if world_state["train_ending"] == True:
+            break
+        location_move(phoenix_brooks, world_state)
+        
+wild_west_game(phoenix_brooks, world_state)
